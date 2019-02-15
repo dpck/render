@@ -32,6 +32,14 @@
     "@a-la/detect-jsx" "1.0.1"
     restream "3.5.0"
 
+"@a-la/jsx@1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.1.tgz#7a55e466aed0a4646d476bd3a525772b8a777d91"
+  integrity sha512-2OK8E3bu3H0xkexzO69DsGLzHSZPxf5YqtJCh+pGXDh4no56tlFUpuNr/dsWPDP2yAXW0EjKAI2c5hwIMRTTBg==
+  dependencies:
+    "@a-la/detect-jsx" "1.0.1"
+    restream "3.5.0"
+
 "@a-la/markers@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@a-la/markers/-/markers-1.0.3.tgz#2800c812acce35d01756cd82a0553320d405f38d"

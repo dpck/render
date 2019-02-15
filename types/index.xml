@@ -7,7 +7,7 @@
       If `true`, uses self-closing tags for elements without children.
     </prop>
     <prop boolean name="pretty" default="false">
-      If `true`, adds whitespace for readability.
+      If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`.
     </prop>
   </type>
 </types>

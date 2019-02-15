@@ -12,6 +12,10 @@ const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|sou
  */
 const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true }, context)
 
+// const prettyAttributeHook = (name, value, context, opts) => {
+//   let indentChar = typeof opts.pretty=='string' ? opts.pretty : '  '
+//   return `\n${indentChar}${name}="${encodeEntities(value)}"`
+// }
 
 /** Render Preact JSX + Components to an HTML string.
  * @param {VNode} vnode JSX VNode to render.
@@ -19,36 +23,43 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
  * @param {Config} [opts] Rendering options.
  * @param {boolean} [opts.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @param {boolean} [opts.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
- * @param {boolean} [opts.pretty=false] If `true`, adds whitespace for readability. Default `false`.
+ * @param {boolean} [opts.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  */
 function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
-  if (vnode==null || typeof vnode==='boolean') {
+  if (vnode==null || typeof vnode=='boolean') {
     return ''
   }
 
-  let nodeName = vnode.nodeName,
-    attributes = vnode.attributes,
-    isComponent = false
+  const {
+    pretty = false,
+    shallow = false,
+    renderRootComponent = false,
+    shallowHighOrder = false,
+    sortAttributes,
+    allAttributes,
+    xml,
+  } = opts
 
-  let pretty = opts.pretty,
-    indentChar = pretty && typeof pretty==='string' ? pretty : '\t'
+  let nodeName = vnode.nodeName,
+    attributes = vnode.attributes || {}
+
+  const indentChar = typeof pretty == 'string' ? pretty : '  '
 
   // #text nodes
-  if (typeof vnode!=='object' && !nodeName) {
+  if (typeof vnode!='object' && !nodeName) {
     return encodeEntities(vnode)
   }
 
   // components
-  if (typeof nodeName==='function') {
-    isComponent = true
-    if (opts.shallow && (inner || opts.renderRootComponent===false)) {
+  if (typeof nodeName=='function') {
+    if (shallow && (inner || !renderRootComponent)) {
       nodeName = getComponentName(nodeName)
     }
     else {
       let props = getNodeProps(vnode),
         rendered
 
-      if (!nodeName.prototype || typeof nodeName.prototype.render!=='function') {
+      if (!nodeName.prototype || typeof nodeName.prototype.render!='function') {
         // stateless functional components
         rendered = nodeName(props, context)
       }
@@ -68,74 +79,66 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
         }
       }
 
-      return renderToString(rendered, opts, context,  opts.shallowHighOrder!==false)
+      return renderToString(rendered, opts, context, shallowHighOrder)
     }
   }
 
   // render JSX to HTML
   let s = '', html
 
-  if (attributes) {
-    let attrs = Object.keys(attributes)
+  const attrs = Object.keys(attributes)
 
-    // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
-    if (opts && opts.sortAttributes===true) attrs.sort()
+  // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
+  if (sortAttributes) attrs.sort()
 
-    for (let i=0; i<attrs.length; i++) {
-      let name = attrs[i],
-        v = attributes[name]
-      if (name==='children') continue
-
-      if (name.match(/[\s\n\\/='"\0<>]/)) continue
-
-      if (!(opts && opts.allAttributes) && (name==='key' || name==='ref')) continue
-
-      if (name==='className') {
-        if (attributes.class) continue
-        name = 'class'
-      }
-      else if (isSvgMode && name.match(/^xlink:?./)) {
-        name = name.toLowerCase().replace(/^xlink:?/, 'xlink:')
-      }
-
-      if (name==='style' && v && typeof v==='object') {
-        v = styleObjToCss(v)
-      }
-
-      let hooked = opts.attributeHook && opts.attributeHook(name, v, context, opts, isComponent)
-      if (hooked || hooked==='') {
-        s += hooked
-        continue
-      }
-
-      if (name==='dangerouslySetInnerHTML') {
-        html = v && v.__html
-      }
-      else if ((v || v===0 || v==='') && typeof v!=='function') {
-        if (v===true || v==='') {
-          v = name
-          // in non-xml mode, allow boolean attributes
-          if (!opts || !opts.xml) {
-            s += ' ' + name
-            continue
-          }
-        }
-        s += ` ${name}="${encodeEntities(v)}"`
-      }
+  const a = attrs.map((name) => {
+    let v = attributes[name]
+    if (name == 'children') return
+    if (name.match(/[\s\n\\/='"\0<>]/)) return
+    if (!allAttributes && ['key', 'ref'].includes(name)) return
+    if (name == 'className') {
+      if (attributes.class) return // class takes precedence
+      name = 'class'
     }
-  }
+    if (isSvgMode && name.match(/^xlink:?./)) {
+      name = name.toLowerCase().replace(/^xlink:?/, 'xlink:')
+    }
+    if (name == 'style' && v && typeof v == 'object') {
+      v = styleObjToCss(v)
+    }
+    if (name == 'dangerouslySetInnerHTML') {
+      html = v && v.__html // side-effect
+    } else if ((v || v===0 || v==='') && typeof v!='function') {
+      if (v===true || v==='') {
+        v = name
+        // in non-xml mode, allow boolean attributes
+        if (!xml) return name
+      }
+      return `${name}="${encodeEntities(v)}"`
+    }
+  }).filter(Boolean)
 
   // account for >1 multiline attribute
   if (pretty) {
-    let sub = s.replace(/^\n\s*/, ' ')
-    if (sub!==s && !~sub.indexOf('\n')) s = sub
-    else if (pretty && ~s.indexOf('\n')) s += '\n'
+    const nl = `<${nodeName}`
+    let cl = nl.length
+    s = a.reduce((acc, current) => {
+      const newLength = cl + 1 + current.length
+      if (newLength > 40) {
+        cl = indentChar.length
+        return `${acc}\n${indentChar}${current}`
+      }
+      cl = newLength
+      return `${acc} ${current}`
+    }, '')
+  } else {
+    s = ' ' + a.join(' ')
   }
 
   s = `<${nodeName}${s}>`
-  if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s
+  if (`${nodeName}`.match(/[\s\n\\/='"\0<>]/)) throw s
 
-  let isVoid = String(nodeName).match(VOID_ELEMENTS)
+  let isVoid = `${nodeName}`.match(VOID_ELEMENTS)
   if (isVoid) s = s.replace(/>$/, ' />')
 
   let pieces = []
@@ -151,13 +154,13 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     for (let i=0; i<vnode.children.length; i++) {
       let child = vnode.children[i]
       if (child!=null && child!==false) {
-        let childSvgMode = nodeName==='svg' ? true : nodeName==='foreignObject' ? false : isSvgMode,
+        let childSvgMode = nodeName=='svg' ? true : nodeName=='foreignObject' ? false : isSvgMode,
           ret = renderToString(child, opts, context, true, childSvgMode)
         if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true
         if (ret) pieces.push(ret)
       }
     }
-    if (pretty && hasLarge) {
+    if (pretty && hasLarge && !['textarea', 'pre'].includes(nodeName)) {
       for (let i=pieces.length; i--; ) {
         pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar)
       }
@@ -167,7 +170,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   if (pieces.length) {
     s += pieces.join('')
   }
-  else if (opts && opts.xml) {
+  else if (xml) {
     return s.substring(0, s.length-1) + ' />'
   }
 
@@ -206,14 +209,12 @@ function getFallbackComponentName(component) {
 
 export default renderToString
 
-export {
-  shallowRender,
-}
+export { shallowRender }
 
 /* documentary types/index.xml */
 /**
  * @typedef {Object} Config Rendering options.
  * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
- * @prop {boolean} [pretty=false] If `true`, adds whitespace for readability. Default `false`.
+ * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  */
