@@ -32,10 +32,10 @@
     "@a-la/detect-jsx" "1.0.1"
     restream "3.5.0"
 
-"@a-la/jsx@1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.1.tgz#7a55e466aed0a4646d476bd3a525772b8a777d91"
-  integrity sha512-2OK8E3bu3H0xkexzO69DsGLzHSZPxf5YqtJCh+pGXDh4no56tlFUpuNr/dsWPDP2yAXW0EjKAI2c5hwIMRTTBg==
+"@a-la/jsx@1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@a-la/jsx/-/jsx-1.4.2.tgz#ba8d45a6947c040faff0e19b5d7f7f598a9989c2"
+  integrity sha512-7zQ9veYS+JMcLCJGLhxTS+g/9ms88ijkJWi4OhvmgZZLbGA8Mh4c1NPEPdEU1GWS4R9br6HXTw9GxpunHQgrqA==
   dependencies:
     "@a-la/detect-jsx" "1.0.1"
     restream "3.5.0"

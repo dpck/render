@@ -1,4 +1,4 @@
-import { encodeEntities, indent, isLargeString, styleObjToCss, assign, getNodeProps } from './util'
+import { encodeEntities, indent, isLargeString, styleObjToCss, getNodeProps } from './util'
 
 // components without names, kept as a hash for later comparison to return consistent UnnamedComponentXX names.
 const UNNAMED = []
@@ -43,6 +43,8 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   let nodeName = vnode.nodeName,
     attributes = vnode.attributes || {}
 
+  const noPretty = ['textarea', 'pre'].includes(nodeName)
+
   const indentChar = typeof pretty == 'string' ? pretty : '  '
 
   // #text nodes
@@ -70,12 +72,15 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
         c._disable = c.__x = true
         c.props = props
         c.context = context
-        if (nodeName.getDerivedStateFromProps) c.state = assign(assign({}, c.state), nodeName.getDerivedStateFromProps(c.props, c.state))
+        if (nodeName.getDerivedStateFromProps) c.state = {
+          ...c.state,
+          ...nodeName.getDerivedStateFromProps(c.props, c.state),
+        }
         else if (c.componentWillMount) c.componentWillMount()
         rendered = c.render(c.props, c.state, c.context)
 
         if (c.getChildContext) {
-          context = assign(assign({}, context), c.getChildContext())
+          context = { ...context, ...c.getChildContext() }
         }
       }
 
@@ -124,7 +129,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     let cl = nl.length
     s = a.reduce((acc, current) => {
       const newLength = cl + 1 + current.length
-      if (newLength > 40) {
+      if (newLength > 80) {
         cl = indentChar.length
         return `${acc}\n${indentChar}${current}`
       }
@@ -132,7 +137,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
       return `${acc} ${current}`
     }, '')
   } else {
-    s = ' ' + a.join(' ')
+    s = a.length ? ' ' + a.join(' ') : ''
   }
 
   s = `<${nodeName}${s}>`
@@ -144,24 +149,25 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   let pieces = []
   if (html) {
     // if multiline, indent.
-    if (pretty && isLargeString(html)) {
+    if (pretty && isLargeString(html) || html.length + getLastLineLength(s) > 80) {
       html = '\n' + indentChar + indent(html, indentChar)
     }
     s += html
   }
   else if (vnode.children) {
     let hasLarge = pretty && ~s.indexOf('\n')
-    for (let i=0; i<vnode.children.length; i++) {
-      let child = vnode.children[i]
-      if (child!=null && child!==false) {
-        let childSvgMode = nodeName=='svg' ? true : nodeName=='foreignObject' ? false : isSvgMode,
-          ret = renderToString(child, opts, context, true, childSvgMode)
-        if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true
-        if (ret) pieces.push(ret)
-      }
-    }
-    if (pretty && hasLarge && !['textarea', 'pre'].includes(nodeName)) {
-      for (let i=pieces.length; i--; ) {
+    pieces = vnode.children.map((child) => {
+      if (child==null || child===false) return
+      const childSvgMode = nodeName == 'svg' ? true : nodeName == 'foreignObject' ? false : isSvgMode
+      const ret = renderToString(child, opts, context, true, childSvgMode)
+      if (!ret) return
+      if (pretty && ret.length + getLastLineLength(s) > 80)
+        hasLarge = true
+      return ret
+    }).filter(Boolean)
+
+    if (pretty && hasLarge && !noPretty) {
+      for (let i=pieces.length; i--;) {
         pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar)
       }
     }
@@ -175,7 +181,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   }
 
   if (!isVoid) {
-    if (pretty && ~s.indexOf('\n')) s += '\n'
+    if (!noPretty && pretty && ~s.indexOf('\n')) s += '\n'
     s += `</${nodeName}>`
   }
 
@@ -210,6 +216,12 @@ function getFallbackComponentName(component) {
 export default renderToString
 
 export { shallowRender }
+
+const getLastLineLength = (s) => {
+  const st = s.split('\n')
+  const lastLine = st[st.length - 1]
+  return lastLine.length
+}
 
 /* documentary types/index.xml */
 /**
