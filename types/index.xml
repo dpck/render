@@ -1,10 +1,13 @@
 <types>
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+  <type name="Config" desc="Rendering options.">
+    <prop boolean name="shallow" default="false">
+      If `true`, renders nested Components as HTML elements (`<Foo a="b" />`).
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop boolean name="xml" default="false">
+      If `true`, uses self-closing tags for elements without children.
+    </prop>
+    <prop boolean name="pretty" default="false">
+      If `true`, adds whitespace for readability.
     </prop>
   </type>
 </types>

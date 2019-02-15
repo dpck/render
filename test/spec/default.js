@@ -8,15 +8,6 @@ const T = {
   'is a function'() {
     equal(typeof render, 'function')
   },
-  async 'calls package without error'() {
-    await render()
-  },
-  async 'gets a link to the fixture'({ FIXTURE }) {
-    const res = await render({
-      text: FIXTURE,
-    })
-    ok(res, FIXTURE)
-  },
 }
 
 export default T
