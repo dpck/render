@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/%40depack%2Frender.svg)](https://npmjs.org/package/@depack/render)
 
-`@depack/render` is Renders JSX To String. This is a fork of [developit/preact-render-to-string](https://github.com/developit/preact-render-to-string/) with the new pretty algorithm that breaks up attributes by the line length rather than printing them on each line. It also removes dependency on the Facebook's package for JSX printing that cannot be in _Preact_, so the `/jsx` is currently not implemented.
+`@depack/render` is Renders JSX To String. This is a fork of [developit/preact-render-to-string](https://github.com/developit/preact-render-to-string/) with the new pretty algorithm that breaks up attributes by the line length rather than printing them on each line. It also removes dependency on the Facebook's package called "pretty-format" for JSX printing that cannot be in _Depack_ because of the whole idea of _Preact_ to be different from Facebook, so the `/jsx` is currently not implemented. The additional functionality of this package is also to correctly handle pretty printing for `textarea` and `pre` tags which are sensitive to the leading and forwarding whitespace.
 
 ```sh
 yarn add -E @depack/render
@@ -12,8 +12,9 @@ yarn add -E @depack/render
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`render(vnode: VNode, opts?: Conf, context?: *)`](#rendervnode-vnodeopts-confcontext--void)
+- [`render(vnode: VNode, opts?: Config, context?: *): string`](#rendervnode-vnodeopts-configcontext--string)
   * [`Config`](#type-config)
+- [Pretty Render](#pretty-render)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -28,7 +29,7 @@ import render from '@depack/render'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`opts?: Conf,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): void`
+## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`opts?: Config,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): string`
 
 Renders the _VNode_ into the string.
 
@@ -53,11 +54,56 @@ const App = () => (
 const s = render(<App />)
 console.log(s)
 ```
-```
+```html
 <div class="hello"><span id="name"></span></div>
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
+
+## Pretty Render
+
+Unlike the original _Preact/render-to-string_, the new rendering algorithm does not break up attributes to have each its own line, so that it is easier to present on the documentation.
+
+```jsx
+import render from '@depack/render'
+
+const App = () => (
+  <div className="hello" data-example data-example-2="on9384636" id="Main-true-than-ever">
+    Welcome to the website. Here you can find
+information regarding different topics.
+    <span id="name">This is your name</span>
+    <select>
+      <option value="pretty">Option One For You To Choose.</option>
+      <option value="string">
+        Another Option For The Choosing.
+      </option>
+    </select>
+  </div>
+)
+const s = render(<App />, {
+  pretty: true,
+  lineLength: 40,
+})
+console.log(s)
+```
+```html
+<div class="hello" data-example="1"
+  data-example-2="on9384636" id="Main-true-than-ever">
+  Welcome to the website. Here you can find
+  information regarding different topics.
+  <span id="name">This is your name</span>
+  <select>
+    <option value="pretty">
+      Option One For You To Choose.
+    </option>
+    <option value="string">
+      Another Option For The Choosing.
+    </option>
+  </select>
+</div>
+```
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
 
 ## Copyright
 
