@@ -9,5 +9,8 @@
     <prop boolean name="pretty" default="false">
       If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`.
     </prop>
+    <prop number name="lineLength" default="40">
+      The number of characters on one line above which the line should be split in the `pretty` mode.
+    </prop>
   </type>
 </types>

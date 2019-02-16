@@ -10,16 +10,17 @@ import render from '@depack/render'
 
 ```## render
 [
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
+  ["vnode", "VNode"],
+  ["opts?", "Conf"],
+  ["context?", "*"]
 ]
 ```
 
-Call this function to get the result you want.
+Renders the _VNode_ into the string.
 
 %TYPEDEF types/index.xml%
 
-%EXAMPLE: example/example.js, ../src => @depack/render%
+%EXAMPLE: example/example.jsx, ../src => @depack/render%
 %FORK example example/example%
 
 %~%
