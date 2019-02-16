@@ -30,7 +30,13 @@
   },
   "keywords": [
     "render",
-    "depack"
+    "depack",
+    "preact",
+    "html",
+    "ssr",
+    "string",
+    "universal",
+    "jsx"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
