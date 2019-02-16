@@ -1,4 +1,5 @@
-const { encodeEntities, indent, isLargeString, styleObjToCss, getNodeProps } = require('./util');
+const { encodeEntities, indent, isLargeString, getNodeProps } = require('./util');
+const { mapAttributes } = require('./lib');
 
 // components without names, kept as a hash for later comparison to return consistent UnnamedComponentXX names.
 const UNNAMED = []
@@ -24,6 +25,7 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
  * @param {boolean} [opts.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @param {boolean} [opts.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @param {boolean} [opts.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
+ * @param {number} [opts.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
  */
 function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   if (vnode==null || typeof vnode=='boolean') {
@@ -38,6 +40,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     sortAttributes,
     allAttributes,
     xml,
+    lineLength = 80,
   } = opts
 
   let nodeName = vnode.nodeName,
@@ -91,45 +94,18 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   // render JSX to HTML
   let s = '', html
 
-  const attrs = Object.keys(attributes)
-
-  // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
-  if (sortAttributes) attrs.sort()
-
-  const a = attrs.map((name) => {
-    let v = attributes[name]
-    if (name == 'children') return
-    if (name.match(/[\s\n\\/='"\0<>]/)) return
-    if (!allAttributes && ['key', 'ref'].includes(name)) return
-    if (name == 'className') {
-      if (attributes.class) return // class takes precedence
-      name = 'class'
-    }
-    if (isSvgMode && name.match(/^xlink:?./)) {
-      name = name.toLowerCase().replace(/^xlink:?/, 'xlink:')
-    }
-    if (name == 'style' && v && typeof v == 'object') {
-      v = styleObjToCss(v)
-    }
-    if (name == 'dangerouslySetInnerHTML') {
-      html = v && v.__html // side-effect
-    } else if ((v || v===0 || v==='') && typeof v!='function') {
-      if (v===true || v==='') {
-        v = name
-        // in non-xml mode, allow boolean attributes
-        if (!xml) return name
-      }
-      return `${name}="${encodeEntities(v)}"`
-    }
-  }).filter(Boolean)
+  let mappedAttributes
+  ;({ mappedAttributes, html } = mapAttributes(attributes, {
+    allAttributes, xml, isSvgMode, sort: sortAttributes,
+  }))
 
   // account for >1 multiline attribute
   if (pretty) {
     const nl = `<${nodeName}`
     let cl = nl.length
-    s = a.reduce((acc, current) => {
+    s = mappedAttributes.reduce((acc, current) => {
       const newLength = cl + 1 + current.length
-      if (newLength > 80) {
+      if (newLength > lineLength) {
         cl = indentChar.length
         return `${acc}\n${indentChar}${current}`
       }
@@ -137,7 +113,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
       return `${acc} ${current}`
     }, '')
   } else {
-    s = a.length ? ' ' + a.join(' ') : ''
+    s = mappedAttributes.length ? ' ' + mappedAttributes.join(' ') : ''
   }
 
   s = `<${nodeName}${s}>`
@@ -149,7 +125,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   let pieces = []
   if (html) {
     // if multiline, indent.
-    if (pretty && isLargeString(html) || html.length + getLastLineLength(s) > 80) {
+    if (pretty && isLargeString(html) || html.length + getLastLineLength(s) > lineLength) {
       html = '\n' + indentChar + indent(html, indentChar)
     }
     s += html
@@ -161,7 +137,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
       const childSvgMode = nodeName == 'svg' ? true : nodeName == 'foreignObject' ? false : isSvgMode
       const ret = renderToString(child, opts, context, true, childSvgMode)
       if (!ret) return
-      if (pretty && ret.length + getLastLineLength(s) > 80)
+      if (pretty && ret.length + getLastLineLength(s) > lineLength)
         hasLarge = true
       return ret
     }).filter(Boolean)
@@ -229,6 +205,7 @@ const getLastLineLength = (s) => {
  * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
+ * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
  */
 
 
