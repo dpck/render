@@ -1,5 +1,9 @@
 ## 17 February 2019
 
+### 1.1.2
+
+- [doc] Correct JSDoc for `RenderConfig`.
+
 ### 1.1.1
 
 - [doc] Publish types directory and JSDoc VNode.
