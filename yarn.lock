@@ -64,10 +64,10 @@
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.1.tgz#7e4d3bb1b0ac62173b00e4bba7091f7847cdb088"
   integrity sha512-ZSavD8NpWA1/1SRCKrx8LZ5WfbKS1kRUIFOERJvR1jXqCAcbM3xWSP2VdCKEh4lCwWghSWQkotbpK6n+o1Y/xQ==
 
-"@depack/context@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@depack/context/-/context-1.0.0.tgz#e78e302eda7a1728ef6a96634109d157dae80475"
-  integrity sha512-jVY94JsfK+ZFTYj5u4WpcN/5OxoesM57Wlx8uewezF+GpVwSp1Y2NS8Ro9RX49aPAa1aHUlSDwooqPym1CP6aQ==
+"@depack/context@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@depack/context/-/context-1.1.0.tgz#fd13f5b1c8ad7fc967d5e25d92210a33c9587ddb"
+  integrity sha512-8Ec0eGSM9SGryGAI7Zodox8ijQFWwmNuV4Pw5cEDSPa5xHmR09FBWV7043zkDkkgzLZPIzDKhptppZfQ3z67og==
   dependencies:
     "@depack/render" "1.1.1"
 
