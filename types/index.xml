@@ -1,5 +1,8 @@
 <types>
   <type name="Config" desc="Rendering options.">
+    <prop boolean name="addDoctype" default="false">
+      Adds the `<!doctype html>` at the beginning of the return string.
+    </prop>
     <prop boolean name="shallow" default="false">
       If `true`, renders nested Components as HTML elements (`<Foo a="b" />`).
     </prop>

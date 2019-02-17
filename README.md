@@ -38,6 +38,7 @@ __<a name="type-config">`Config`</a>__: Rendering options.
 
 |    Name    |   Type    |                                                    Description                                                    | Default |
 | ---------- | --------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+| addDoctype | _boolean_ | Adds the `<!doctype html>` at the beginning of the return string.                                                 | `false` |
 | shallow    | _boolean_ | If `true`, renders nested Components as HTML elements (`<Foo a="b" />`).                                          | `false` |
 | xml        | _boolean_ | If `true`, uses self-closing tags for elements without children.                                                  | `false` |
 | pretty     | _boolean_ | If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. | `false` |
