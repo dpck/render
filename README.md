@@ -108,7 +108,7 @@ console.log(s)
 
 ## **Server-Side Rendering**
 
-Using _Depack/Render_ for SSR is very easy with the ÀLaMode transpiler of the source code. It is installed as a require hook in the entry point of the app:
+Using _Depack/Render_ for SSR is very easy with the [ÀLaMode](https://github.com/a-la/alamode) transpiler of the source code. It is installed as a require hook in the entry point of the app:
 
 ```js
 require('alamode')()
