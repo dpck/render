@@ -64,6 +64,18 @@
   resolved "https://registry.yarnpkg.com/@artdeco/clean-stack/-/clean-stack-1.0.1.tgz#7e4d3bb1b0ac62173b00e4bba7091f7847cdb088"
   integrity sha512-ZSavD8NpWA1/1SRCKrx8LZ5WfbKS1kRUIFOERJvR1jXqCAcbM3xWSP2VdCKEh4lCwWghSWQkotbpK6n+o1Y/xQ==
 
+"@depack/context@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@depack/context/-/context-1.0.0.tgz#e78e302eda7a1728ef6a96634109d157dae80475"
+  integrity sha512-jVY94JsfK+ZFTYj5u4WpcN/5OxoesM57Wlx8uewezF+GpVwSp1Y2NS8Ro9RX49aPAa1aHUlSDwooqPym1CP6aQ==
+  dependencies:
+    "@depack/render" "1.1.1"
+
+"@depack/render@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@depack/render/-/render-1.1.1.tgz#941b74d25088a6773ef7dea684f6f6368ac59d4d"
+  integrity sha512-vdv39uR9Uv5pc/gWa1gGzY8YX407cdtQfbuOgSkToVHjo4JSFf9K3EoEn8uZTuKnaHUJpRChTT2XuewhmDRNtQ==
+
 "@idio/core@1.3.2":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@idio/core/-/core-1.3.2.tgz#61735d83d87db746684b5a74e7525afa58a552df"
