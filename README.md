@@ -15,6 +15,7 @@ yarn add -E @depack/render
 - [`render(vnode: VNode, opts?: Config, context?: *): string`](#rendervnode-vnodeopts-configcontext--string)
   * [`Config`](#type-config)
 - [Pretty Render](#pretty-render)
+- [**Server-Side Rendering**](#server-side-rendering)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -87,7 +88,7 @@ const s = render(<App />, {
 console.log(s)
 ```
 ```html
-<div class="hello" data-example="1"
+<div class="hello" data-example
   data-example-2="on9384636" id="Main-true-than-ever">
   Welcome to the website. Here you can find
   information regarding different topics.
@@ -104,6 +105,74 @@ console.log(s)
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/3.svg?sanitize=true"></a></p>
+
+## **Server-Side Rendering**
+
+Using _Depack/Render_ for SSR is very easy with the ÀLaMode transpiler of the source code. It is installed as a require hook in the entry point of the app:
+
+```js
+require('alamode')()
+require('./server')
+```
+
+_And the server is configured:_
+
+```jsx
+import idio from '@idio/core'
+import render from '@depack/render'
+
+const Html = ({ name }) => (<html>
+  <head>
+    <title>Example Depack/Render</title>
+    <style>
+      {`body {
+        background: lightblue;
+      }`}
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Server-Side-Rendering</h1>
+    Hello, { name }
+    <a href="https://dpck.artd.eco">https://dpck.artd.eco</a>
+  </body>
+</html>)
+
+const Server = async (name) => {
+  const { app, url } = await idio()
+  app.use(async (ctx) => {
+    ctx.body = '<!doctype html>\n' + render(
+      (<Html name={name}/>),
+      { pretty: true, lineLength: 40 })
+  })
+  return { url, app }
+}
+```
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>Example Depack/Render</title>
+    <style>
+      body {
+              background: lightblue;
+            }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Server-Side-Rendering</h1>
+    Hello, Example
+    <a href="https://dpck.artd.eco">
+      https://dpck.artd.eco
+    </a>
+  </body>
+</html>
+```
+
+There are some limitation such as
+
+* no `>` or `<` in expressions or comments, e.g., `for (let i=0; i<10; i++) { ... }` &mdash; the function needs to be taken out of JSX scope. This is due to how the parser finds closing `>` tags: the number of opening to closing `>` must be equal.
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
 
 ## Copyright
 
