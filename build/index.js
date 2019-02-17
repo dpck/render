@@ -18,10 +18,26 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
 //   return `\n${indentChar}${name}="${encodeEntities(value)}"`
 // }
 
-/** Render Preact JSX + Components to an HTML string.
+/**
+ * Render Preact JSX Components to an HTML string.
  * @param {VNode} vnode JSX VNode to render.
+ * @param {Config} [config] Rendering options.
+ * @param {boolean} [config.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
+ * @param {boolean} [config.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
+ * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
+ * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
+ * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
  * @param {Object} [context={}] Optionally pass an initial context object through the render path.
- * @param {Config} [opts] Rendering options.
+ */
+const render = (vnode, config = {}, context = {}) => {
+  const { addDoctype, pretty } = config
+  const res = renderToString(vnode, config, context)
+  if (addDoctype) return `<!doctype html>${pretty ? '\n': ''}${res}`
+  return res
+}
+
+/** Render Preact JSX + Components to an HTML string.
+ * @param {boolean} [opts.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @param {boolean} [opts.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @param {boolean} [opts.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @param {boolean} [opts.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
@@ -40,7 +56,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     sortAttributes,
     allAttributes,
     xml,
-    lineLength = 80,
+    lineLength = 40,
   } = opts
 
   let nodeName = vnode.nodeName,
@@ -189,7 +205,7 @@ function getFallbackComponentName(component) {
   return name
 }
 
-module.exports=renderToString
+module.exports=render
 
 
 
@@ -202,6 +218,7 @@ const getLastLineLength = (s) => {
 /* documentary types/index.xml */
 /**
  * @typedef {Object} Config Rendering options.
+ * @prop {boolean} [addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
