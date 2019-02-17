@@ -18,6 +18,12 @@ const T = {
       mappedAttributes: [ 'attr1="test"', 'attrs' ],
       html: undefined })
   },
+  'adds doctype'() {
+    const res = render(<div />, {
+      addDoctype: true,
+    })
+    equal(res, '<!doctype html><div></div>')
+  },
 }
 
 export default T
