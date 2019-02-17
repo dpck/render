@@ -1,5 +1,6 @@
 <types>
-  <type name="Config" desc="Rendering options.">
+  <import name="VNode" from="preact" />
+  <type name="RenderConfig" desc="Rendering options.">
     <prop boolean name="addDoctype" default="false">
       Adds the `<!doctype html>` at the beginning of the return string.
     </prop>

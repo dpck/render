@@ -22,7 +22,8 @@
   },
   "files": [
     "build",
-    "src"
+    "src",
+    "types"
   ],
   "repository": {
     "type": "git",

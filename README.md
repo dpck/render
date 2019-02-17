@@ -12,8 +12,8 @@ yarn add -E @depack/render
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`render(vnode: VNode, opts?: Config, context?: *): string`](#rendervnode-vnodeopts-configcontext--string)
-  * [`Config`](#type-config)
+- [`render(vnode: VNode, config?: RenderConfig, context?: *): string`](#rendervnode-vnodeconfig-renderconfigcontext--string)
+  * [`RenderConfig`](#type-renderconfig)
 - [Pretty Render](#pretty-render)
 - [**Server-Side Rendering**](#server-side-rendering)
 - [Copyright](#copyright)
@@ -30,11 +30,13 @@ import render from '@depack/render'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`opts?: Config,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): string`
+## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`config?: RenderConfig,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): string`
 
 Renders the _VNode_ into the string.
 
-__<a name="type-config">`Config`</a>__: Rendering options.
+`import('preact').VNode` __<a name="type-vnode">`VNode`</a>__
+
+__<a name="type-renderconfig">`RenderConfig`</a>__: Rendering options.
 
 |    Name    |   Type    |                                                    Description                                                    | Default |
 | ---------- | --------- | ----------------------------------------------------------------------------------------------------------------- | ------- |

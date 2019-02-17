@@ -37,6 +37,7 @@ const render = (vnode, config = {}, context = {}) => {
 }
 
 /** Render Preact JSX + Components to an HTML string.
+ * @param {VNode}
  * @param {boolean} [opts.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @param {boolean} [opts.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @param {boolean} [opts.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
@@ -217,7 +218,9 @@ const getLastLineLength = (s) => {
 
 /* documentary types/index.xml */
 /**
- * @typedef {Object} Config Rendering options.
+ * @typedef {import('preact').VNode} VNode
+ *
+ * @typedef {Object} RenderConfig Rendering options.
  * @prop {boolean} [addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.

@@ -11,7 +11,7 @@ import render from '@depack/render'
 ```## render => string
 [
   ["vnode", "VNode"],
-  ["opts?", "Config"],
+  ["config?", "RenderConfig"],
   ["context?", "*"]
 ]
 ```
