@@ -30,9 +30,9 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
  * @param {Object} [context={}] Optionally pass an initial context object through the render path.
  */
 const render = (vnode, config = {}, context = {}) => {
-  const { addDoctype } = config
+  const { addDoctype, pretty } = config
   const res = renderToString(vnode, config, context)
-  if (addDoctype) return `<!doctype html>${res}`
+  if (addDoctype) return `<!doctype html>${pretty ? '\n': ''}${res}`
   return res
 }
 

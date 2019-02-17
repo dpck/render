@@ -22,9 +22,11 @@ const Html = ({ name }) => (<html>
 const Server = async (name) => {
   const { app, url } = await idio()
   app.use(async (ctx) => {
-    ctx.body = '<!doctype html>\n' + render(
+    ctx.body = render(
       (<Html name={name}/>),
-      { pretty: true, lineLength: 40 })
+      { addDoctype: true,
+        pretty: true,
+        lineLength: 40 })
   })
   return { url, app }
 }

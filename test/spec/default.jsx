@@ -24,6 +24,14 @@ const T = {
     })
     equal(res, '<!doctype html><div></div>')
   },
+  'adds pretty doctype'() {
+    const res = render(<div />, {
+      addDoctype: true,
+      pretty: true,
+    })
+    equal(res, `<!doctype html>
+<div></div>`)
+  },
 }
 
 export default T
