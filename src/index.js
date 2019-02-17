@@ -21,7 +21,7 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
 /**
  * Render Preact JSX Components to an HTML string.
  * @param {VNode} vnode JSX VNode to render.
- * @param {Config} [config] Rendering options.
+ * @param {RenderConfig} [config] Rendering options.
  * @param {boolean} [config.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @param {boolean} [config.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
