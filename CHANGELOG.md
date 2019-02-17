@@ -1,5 +1,10 @@
 ## 17 February 2019
 
+### 1.1.1
+
+- [doc] Publish types directory and JSDoc VNode.
+- [test] Start using _Depack/Context_.
+
 ### 1.1.0
 
 - [doc] Document Server-Side-Rendering.
