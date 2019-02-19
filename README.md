@@ -14,8 +14,9 @@ yarn add -E @depack/render
 - [API](#api)
 - [`render(vnode: VNode, config?: RenderConfig, context?: *): string`](#rendervnode-vnodeconfig-renderconfigcontext--string)
   * [`RenderConfig`](#type-renderconfig)
-- [Pretty Render](#pretty-render)
+- [**Pretty Render**](#pretty-render)
 - [**Server-Side Rendering**](#server-side-rendering)
+- [Fork Improvements](#fork-improvements)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -64,7 +65,7 @@ console.log(s)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
-## Pretty Render
+## **Pretty Render**
 
 Unlike the original _Preact/render-to-string_, the new rendering algorithm does not break up attributes to have each its own line, so that it is easier to present on the documentation.
 
@@ -153,24 +154,7 @@ const Server = async (name) => {
 }
 ```
 ```html
-<!doctype html>
-<html>
-  <head>
-    <title>Example Depack/Render</title>
-    <style>
-      body {
-              background: lightblue;
-            }
-    </style>
-  </head>
-  <body>
-    <h1>Welcome to the Server-Side-Rendering</h1>
-    Hello, Example
-    <a href="https://dpck.artd.eco">
-      https://dpck.artd.eco
-    </a>
-  </body>
-</html>
+
 ```
 
 There are some limitation such as
@@ -178,6 +162,14 @@ There are some limitation such as
 * no `>` or `<` in expressions or comments, e.g., `for (let i=0; i<10; i++) { ... }` &mdash; the function needs to be taken out of JSX scope. This is due to how the parser finds closing `>` tags: the number of opening to closing `>` must be equal.
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/4.svg?sanitize=true"></a></p>
+
+## Fork Improvements
+
+There are a number of new features that the fork has:
+
+* Render `htmlFor` into plain `for` attribute.
+
+<p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/5.svg?sanitize=true"></a></p>
 
 ## Copyright
 

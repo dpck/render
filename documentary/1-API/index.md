@@ -25,7 +25,7 @@ Renders the _VNode_ into the string.
 
 %~%
 
-## Pretty Render
+## **Pretty Render**
 
 Unlike the original _Preact/render-to-string_, the new rendering algorithm does not break up attributes to have each its own line, so that it is easier to present on the documentation.
 
