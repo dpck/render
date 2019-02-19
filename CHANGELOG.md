@@ -1,3 +1,9 @@
+## 19 February 2019
+
+### 1.1.3
+
+- [fix] Render `htmlFor` into `for`.
+
 ## 17 February 2019
 
 ### 1.1.2
