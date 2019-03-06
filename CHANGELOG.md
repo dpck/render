@@ -3,6 +3,7 @@
 ### 1.1.4
 
 - [deps] Up deps (for boolean attributes in JSX@1.4.4)
+- [docs] Fix missing SSR html output.
 
 ## 19 February 2019
 
