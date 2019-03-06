@@ -1,3 +1,9 @@
+## 6 February 2019
+
+### 1.1.4
+
+- [deps] Up deps (for boolean attributes in JSX@1.4.4)
+
 ## 19 February 2019
 
 ### 1.1.3
