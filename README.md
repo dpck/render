@@ -154,7 +154,24 @@ const Server = async (name) => {
 }
 ```
 ```html
-
+<!doctype html>
+<html>
+  <head>
+    <title>Example Depack/Render</title>
+    <style>
+      body {
+              background: lightblue;
+            }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Server-Side-Rendering</h1>
+    Hello, Example
+    <a href="https://dpck.artd.eco">
+      https://dpck.artd.eco
+    </a>
+  </body>
+</html>
 ```
 
 There are some limitation such as
