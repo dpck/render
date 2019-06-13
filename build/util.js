@@ -1,20 +1,20 @@
 // DOM properties that should NOT have "px" added when numeric
-       const IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i
+const IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i
 
-       let encodeEntities = s => `${s}`
+let encodeEntities = s => `${s}`
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;')
 
-       let indent = (s, char) => `${s}`.replace(/(\n+)/g, '$1' + (char || '\t'))
+let indent = (s, char) => `${s}`.replace(/(\n+)/g, '$1' + (char || '\t'))
 
-       let isLargeString = (s, length = 40, ignoreLines = false) => (`${s}`.length>length || (!ignoreLines && `${s}`.indexOf('\n')!=-1) || `${s}`.indexOf('<')!==-1)
+let isLargeString = (s, length = 40, ignoreLines = false) => (`${s}`.length>length || (!ignoreLines && `${s}`.indexOf('\n')!=-1) || `${s}`.indexOf('<')!==-1)
 
 const JS_TO_CSS = {}
 
 // Convert an Object style to a CSSText string
-       function styleObjToCss(s) {
+function styleObjToCss(s) {
   let str = ''
   for (let prop in s) {
     let val = s[prop]
@@ -40,7 +40,7 @@ const JS_TO_CSS = {}
  * @param {import('preact').VNode} vnode The VNode to get props for
  * @returns {object} The props to use for this VNode
  */
-       function getNodeProps(vnode) {
+function getNodeProps(vnode) {
   const props = {
     ...vnode.attributes, children: vnode.children,
   }

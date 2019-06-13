@@ -27,6 +27,7 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
  * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @param {boolean} [config.closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  * @param {Object} [context={}] Optionally pass an initial context object through the render path.
  */
 const render = (vnode, config = {}, context = {}) => {
@@ -58,6 +59,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     allAttributes,
     xml,
     lineLength = 40,
+    closeVoidTags = false,
   } = opts
 
   let nodeName = vnode.nodeName,
@@ -137,7 +139,9 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   if (`${nodeName}`.match(/[\s\n\\/='"\0<>]/)) throw s
 
   let isVoid = `${nodeName}`.match(VOID_ELEMENTS)
-  if (isVoid) s = s.replace(/>$/, ' />')
+  if (closeVoidTags) {
+    if (isVoid) s = s.replace(/>$/, ' />')
+  }
 
   let pieces = []
   if (html) {
@@ -209,7 +213,6 @@ function getFallbackComponentName(component) {
 module.exports=render
 
 
-
 const getLastLineLength = (s) => {
   const st = s.split('\n')
   const lastLine = st[st.length - 1]
@@ -218,14 +221,18 @@ const getLastLineLength = (s) => {
 
 /* documentary types/index.xml */
 /**
- * @typedef {import('preact').VNode} VNode
- *
+ * @suppress {nonStandardJsDocs}
  * @typedef {Object} RenderConfig Rendering options.
  * @prop {boolean} [addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @prop {boolean} [closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('preact').VNode} preact.VNode
  */
 
 

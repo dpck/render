@@ -3,7 +3,7 @@ const { encodeEntities, styleObjToCss } = require('../util');
 /**
  * Maps attributes to `name="value"` strings, and returns html if dangerouslySetInnerHTML is given.
  */
-       const mapAttributes = (attributes, {
+const mapAttributes = (attributes, {
   allAttributes, xml, isSvgMode, sort,
 } = {}) => {
   let html
@@ -17,10 +17,12 @@ const { encodeEntities, styleObjToCss } = require('../util');
     if (name == 'className') {
       if (attributes.class) return // class takes precedence
       name = 'class'
-    }
-    if (name == 'htmlFor') {
+    } else if (name == 'htmlFor') {
       if (attributes.for) return // class takes precedence
       name = 'for'
+    } else if (name == 'srcSet') {
+      if (attributes.srcset) return // srcset takes precedence
+      name = 'srcset'
     }
     if (isSvgMode && name.match(/^xlink:?./)) {
       name = name.toLowerCase().replace(/^xlink:?/, 'xlink:')

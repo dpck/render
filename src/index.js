@@ -27,7 +27,7 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
  * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
- * @param {boolean} [config.autocloseVoid=false] Whether the void tags will be autoclosed (for xhtml support). Default `false`.
+ * @param {boolean} [config.closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  * @param {Object} [context={}] Optionally pass an initial context object through the render path.
  */
 const render = (vnode, config = {}, context = {}) => {
@@ -59,7 +59,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
     allAttributes,
     xml,
     lineLength = 40,
-    autocloseVoid = false,
+    closeVoidTags = false,
   } = opts
 
   let nodeName = vnode.nodeName,
@@ -139,7 +139,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   if (`${nodeName}`.match(/[\s\n\\/='"\0<>]/)) throw s
 
   let isVoid = `${nodeName}`.match(VOID_ELEMENTS)
-  if (autocloseVoid) {
+  if (closeVoidTags) {
     if (isVoid) s = s.replace(/>$/, ' />')
   }
 
@@ -229,7 +229,7 @@ const getLastLineLength = (s) => {
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
- * @prop {boolean} [autocloseVoid=false] Whether the void tags will be autoclosed (for xhtml support). Default `false`.
+ * @prop {boolean} [closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  */
 /**
  * @suppress {nonStandardJsDocs}
