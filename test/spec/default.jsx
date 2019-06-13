@@ -1,4 +1,4 @@
-import { equal, deepEqual } from 'zoroaster/assert'
+import { equal, deepEqual } from '@zoroaster/assert'
 import Context from '../context'
 import render from '../../src'
 import { mapAttributes } from '../../src/lib'

@@ -1,14 +1,13 @@
-import { makeTestSuite } from 'zoroaster'
+import makeTestSuite from '@zoroaster/mask'
 import JSXContext from '@depack/context'
 import render from '../../src'
 
 export default makeTestSuite('test/result/index.html', {
   /**
-   * @param {string} input
    * @param {JSXContext} c
    */
-  getResults(input, { getVNode }) {
-    const test = getVNode(input)
+  getResults({ getVNode }) {
+    const test = getVNode(this.input)
     const res = render(test)
     return res
   },
@@ -17,11 +16,10 @@ export default makeTestSuite('test/result/index.html', {
 
 export const pretty = makeTestSuite('test/result/pretty.html', {
   /**
-   * @param {string} input
    * @param {JSXContext} c
    */
-  getResults(input, { getVNode }) {
-    const test = getVNode(input)
+  getResults({ getVNode }) {
+    const test = getVNode(this.input)
     const res = render(test, { pretty: true })
     return res
   },
