@@ -1,3 +1,10 @@
+## 13 June 2019
+
+### [1.2.0](https://github.com/dpck/render/compare/v1.1.4...v1.2.0)
+
+- [feature] Configure whether to close void tags.
+- [fix] Rename `srcSet` to `src`.
+
 ## 6 February 2019
 
 ### 1.1.4
