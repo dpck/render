@@ -16,5 +16,8 @@
     <prop number name="lineLength" default="40">
       The number of characters on one line above which the line should be split in the `pretty` mode.
     </prop>
+    <prop boolean name="autocloseVoid" default="false">
+      Whether the void tags will be autoclosed (for xhtml support).
+    </prop>
   </type>
 </types>
