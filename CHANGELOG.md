@@ -1,3 +1,9 @@
+## 24 July 2019
+
+### [1.2.1](https://github.com/dpck/render/compare/v1.2.0...v1.2.1)
+
+- [fix] Don't indent text inside of tags with `__html` with pretty=false.
+
 ## 13 June 2019
 
 ### [1.2.0](https://github.com/dpck/render/compare/v1.1.4...v1.2.0)
