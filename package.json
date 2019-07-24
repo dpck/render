@@ -50,7 +50,7 @@
     "@depack/context": "1.1.2",
     "@idio/core": "1.4.0",
     "alamode": "2.3.4",
-    "documentary": "1.27.3",
+    "documentary": "1.27.7",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.4.2",
     "rqt": "3.1.3",

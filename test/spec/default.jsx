@@ -32,6 +32,14 @@ const T = {
     equal(res, `<!doctype html>
 <div></div>`)
   },
+  'does not indent html'() {
+    const res = render(<div dangerouslySetInnerHTML={{ __html: 'hello world' }} />, {
+      addDoctype: true,
+      pretty: false,
+      lineLength: 1,
+    })
+    return res
+  },
 }
 
 export default T

@@ -11,7 +11,7 @@ export default makeTestSuite('test/result/index.html', {
     const res = render(test)
     return res
   },
-  context: [JSXContext],
+  context: JSXContext,
 })
 
 export const pretty = makeTestSuite('test/result/pretty.html', {
@@ -23,5 +23,5 @@ export const pretty = makeTestSuite('test/result/pretty.html', {
     const res = render(test, { pretty: true })
     return res
   },
-  context: [JSXContext],
+  context: JSXContext,
 })

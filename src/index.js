@@ -146,7 +146,7 @@ function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   let pieces = []
   if (html) {
     // if multiline, indent.
-    if (pretty && isLargeString(html) || html.length + getLastLineLength(s) > lineLength) {
+    if (pretty && (isLargeString(html) || html.length + getLastLineLength(s) > lineLength)) {
       html = '\n' + indentChar + indent(html, indentChar)
     }
     s += html
