@@ -1,6 +1,6 @@
 {
   "name": "@depack/render",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Renders JSX To String.",
   "main": "build/index.js",
   "module": "src/index.js",
