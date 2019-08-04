@@ -13,7 +13,10 @@ export let isLargeString = (s, length = 40, ignoreLines = false) => (`${s}`.leng
 
 const JS_TO_CSS = {}
 
-// Convert an Object style to a CSSText string
+/**
+ * Convert an Object style to a CSSText string.
+ * @param {!Object} s
+ */
 export function styleObjToCss(s) {
   let str = ''
   for (let prop in s) {
@@ -37,8 +40,7 @@ export function styleObjToCss(s) {
  * Reconstruct Component-style `props` from a VNode.
  * Ensures default/fallback values from `defaultProps`:
  * Own-properties of `defaultProps` not present in `vnode.attributes` are added.
- * @param {import('preact').VNode} vnode The VNode to get props for
- * @returns {object} The props to use for this VNode
+ * @param {!preact.VNode} vnode The VNode to get props for
  */
 export function getNodeProps(vnode) {
   const props = {
@@ -56,3 +58,8 @@ export function getNodeProps(vnode) {
 
   return props
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('@externs/preact').VNode} preact.VNode
+ */

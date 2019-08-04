@@ -21,14 +21,7 @@ const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true 
 /**
  * Render Preact JSX Components to an HTML string.
  * @param {VNode} vnode JSX VNode to render.
- * @param {RenderConfig} [config] Rendering options.
- * @param {boolean} [config.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
- * @param {boolean} [config.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
- * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
- * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
- * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
- * @param {boolean} [config.closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
- * @param {Object} [context={}] Optionally pass an initial context object through the render path.
+ * @param {!_depack.RenderConfig} [config] Rendering options.
  */
 const render = (vnode, config = {}, context = {}) => {
   const { addDoctype, pretty } = config
@@ -38,12 +31,8 @@ const render = (vnode, config = {}, context = {}) => {
 }
 
 /** Render Preact JSX + Components to an HTML string.
- * @param {VNode}
- * @param {boolean} [opts.addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
- * @param {boolean} [opts.shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
- * @param {boolean} [opts.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
- * @param {boolean} [opts.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
- * @param {number} [opts.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @param {!preact.VNode}
+ * @param {!_depack.RenderConfig} opts
  */
 function renderToString(vnode, opts = {}, context = {}, inner, isSvgMode) {
   if (vnode==null || typeof vnode=='boolean') {
@@ -220,18 +209,11 @@ const getLastLineLength = (s) => {
   return lastLine.length
 }
 
-/* documentary types/index.xml */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} RenderConfig Rendering options.
- * @prop {boolean} [addDoctype=false] Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
- * @prop {boolean} [shallow=false] If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
- * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
- * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
- * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
- * @prop {boolean} [closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
+ * @typedef {import('..').RenderConfig} _depack.RenderConfig
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('preact').VNode} preact.VNode
+ * @typedef {import('@externs/preact').VNode} preact.VNode
  */

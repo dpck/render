@@ -1,6 +1,7 @@
-<types>
-  <import name="VNode" from="preact" />
-  <type name="RenderConfig" desc="Rendering options.">
+<types namespace="_depack">
+  <!-- import name="VNode" from="@externs/preact" ns="preact" /> -->
+
+  <type record name="RenderConfig" desc="Rendering options.">
     <prop boolean name="addDoctype" default="false">
       Adds the `<!doctype html>` at the beginning of the return string.
     </prop>
@@ -18,6 +19,9 @@
     </prop>
     <prop boolean name="closeVoidTags" default="false">
       Whether the void tags will be auto-closed (for xhtml support).
+    </prop>
+    <prop boolean name="renderRootComponent" default="false">
+      When shallow rendering is on, will render root component.
     </prop>
   </type>
 </types>
