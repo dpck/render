@@ -46,3 +46,23 @@ _depack.RenderConfig.prototype.closeVoidTags
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.renderRootComponent
+/**
+ * When shallow rendering is on, will render root component.
+ * @type {boolean|undefined}
+ */
+_depack.RenderConfig.prototype.shallowHighOrder
+/**
+ * Sort attributes' keys using the `.sort` method.
+ * @type {boolean|undefined}
+ */
+_depack.RenderConfig.prototype.sortAttributes
+/**
+ * Render all attributes, including `key` and `ref`.
+ * @type {boolean|undefined}
+ */
+_depack.RenderConfig.prototype.allAttributes
+
+/* manual */
+// /** @type {{ class: string, for: string, srcset: string }} */
+/** @type {{ dangerouslySetInnerHTML: {__html: string} }} */
+_depack.PreactAttributes

@@ -2,6 +2,12 @@ import { encodeEntities, styleObjToCss } from '../util'
 
 /**
  * Maps attributes to `name="value"` strings, and returns html if dangerouslySetInnerHTML is given.
+ * @param {!Object<string, ?>} attributes
+ * @param {Object} [props]
+ * @param {boolean} [props.allAttributes=false]
+ * @param {boolean} [props.xml=false]
+ * @param {boolean} [props.isSvgMode=false]
+ * @param {boolean} [props.sort=false]
  */
 export const mapAttributes = (attributes, {
   allAttributes, xml, isSvgMode, sort,

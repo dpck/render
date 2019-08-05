@@ -23,5 +23,14 @@
     <prop boolean name="renderRootComponent" default="false">
       When shallow rendering is on, will render root component.
     </prop>
+    <prop boolean name="shallowHighOrder" default="false">
+      When shallow rendering is on, will render root component.
+    </prop>
+    <prop boolean name="sortAttributes" default="false">
+      Sort attributes' keys using the `.sort` method.
+    </prop>
+    <prop boolean name="allAttributes" default="false">
+      Render all attributes, including `key` and `ref`.
+    </prop>
   </type>
 </types>

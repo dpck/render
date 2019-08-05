@@ -61,5 +61,5 @@ export function getNodeProps(vnode) {
 
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {import('@externs/preact').VNode} preact.VNode
+ * @typedef {import('..').VNode} preact.VNode
  */

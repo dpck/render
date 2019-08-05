@@ -1,5 +1,5 @@
 import '../types/externs'
-import '@externs/preact'
+import '@externs/preact/types/externs'
 
 import render from './'
 
