@@ -3,8 +3,8 @@ const _render = require('./render')
 /**
  * Render Preact JSX Components to an HTML string.
  * @param {preact.VNode} vnode Virtual DOM Node.
- * @param {string|preact.ComponentConstructor|Function} vnode.nodeName The string of the DOM node to create or Component constructor to render.
- * @param {!Array<!preact.VNode|string>} vnode.children The children of node.
+ * @param {string|function(new: preact.Component)|Function} vnode.nodeName The string of the DOM node to create or Component constructor to render.
+ * @param {!Array<preact.VNode|string|boolean|number|undefined>} vnode.children The children of node. Can be scalar values (string, number, boolean, null, undefined, etc), more Virtual DOM elements, or infinitely nested arrays of the above.
  * @param {string|number} [vnode.key] The key used to identify this VNode in a list.
  * @param {Object} vnode.attributes The properties of this VNode.
  * @param {_depack.RenderConfig} [config] Rendering options.
@@ -53,23 +53,10 @@ module.exports = render
 /**
  * @suppress {nonStandardJsDocs}
  * @typedef {Object} preact.VNode `＠interface` Virtual DOM Node.
- * @prop {string|preact.ComponentConstructor|Function} nodeName The string of the DOM node to create or Component constructor to render.
- * @prop {!Array<!preact.VNode|string>} children The children of node.
+ * @prop {string|function(new: preact.Component)|Function} nodeName The string of the DOM node to create or Component constructor to render.
+ * @prop {!Array<preact.VNode|string|boolean|number|undefined>} children The children of node. Can be scalar values (string, number, boolean, null, undefined, etc), more Virtual DOM elements, or infinitely nested arrays of the above.
  * @prop {string|number} [key] The key used to identify this VNode in a list.
  * @prop {Object} attributes The properties of this VNode.
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {preact.ComponentConstructor} ComponentConstructor `＠constructor` A component that extends preact.Component to set default properties. https://git.io/fjHoZ
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {{ defaultProps: !Object, getDerivedStateFromProps: (props: !Object, state: !Object) => !Object } & preact.$ComponentConstructor} preact.ComponentConstructor `＠constructor` A component that extends preact.Component to set default properties. https://git.io/fjHoZ
- */
-/**
- * @suppress {nonStandardJsDocs}
- * @typedef {function(new: preact.Component)} preact.$ComponentConstructor `＠constructor` A component that extends preact.Component to set default properties. https://git.io/fjHoZ
- * @prop {*} defaultProps props
  */
 
 /* typal node_modules/@externs/preact/types/component.xml namespace */
@@ -82,7 +69,6 @@ module.exports = render
  * @typedef {Object} preact.Component `＠constructor` Preact component.
  * @prop {boolean} [_disable] Turns off stateful re-rendering.
  * @prop {boolean} [__x] An alias for `_disable`.
- * @prop {string} [displayName] The display name.
  * @prop {!Object} context The context.
  * @prop {!Object} props The properties.
  * @prop {!Object} state The state.

@@ -9,7 +9,7 @@ const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|sou
 /** Only render elements, leaving Components inline as `<ComponentName ... />`.
  * This method is just a convenience alias for `render(vnode, context, { shallow:true })`
  * @param {preact.VNode} vnode JSX VNode to render.
- * @param {Object} [context]  Optionally pass an initial context object through the render path.
+ * @param {!Object} [context]  Optionally pass an initial context object through the render path.
  */
 const shallowRender = (vnode, context) => renderToString(vnode, { shallow: true }, context)
 
@@ -31,9 +31,9 @@ const render = (vnode, config = {}, context = {}) => {
 }
 
 /** Render Preact JSX + Components to an HTML string.
- * @param {preact.VNode|boolean} vnode
+ * @param {preact.VNode|boolean|number|string|undefined} vnode
  * @param {!_depack.RenderConfig} [opts]
- * @param {Object} [context]
+ * @param {!Object} [context]
  * @param {boolean} [inner]
  * @param {boolean} [isSvgMode]
  */
@@ -74,7 +74,7 @@ function renderToString(
       nodeName = getComponentName(nodeName)
     }
     else {
-      let props = getNodeProps(vnode),
+      let props = getNodeProps(/** @type {!preact.VNode} */ (vnode)),
         rendered
 
       if (!nodeName.prototype || typeof nodeName.prototype.render!='function') {
@@ -83,7 +83,7 @@ function renderToString(
       }
       else {
         // class-based components
-        let c = /** @type {preact.Component} */ (new nodeName(props, context))
+        let c = /** @type {!preact.Component} */ (new nodeName(props, context))
         // turn off stateful re-rendering:
         c._disable = c.__x = true
         c.props = props
@@ -108,7 +108,7 @@ function renderToString(
   let s = '', html
 
   let mappedAttributes
-  ;({ mappedAttributes, html } = mapAttributes(attributes, {
+  ;({ mappedAttributes, html } = mapAttributes(/** @type {!Object} */ (attributes), {
     allAttributes, xml, isSvgMode, sort: sortAttributes,
   }))
 
@@ -180,7 +180,7 @@ function renderToString(
 }
 
 /**
- * @param {!preact.Component} component
+ * @param {!Function} component
  */
 function getComponentName(component) {
   return component.displayName || component!==Function && component.name || getFallbackComponentName(component)
@@ -190,8 +190,10 @@ function getComponentName(component) {
  * @param {!Function} component
  */
 function getFallbackComponentName(component) {
-  let str = Function.prototype.toString.call(component),
-    name = (str.match(/^\s*function\s+([^( ]+)/) || '')[1]
+  /** @type {string} */
+  const str = Function.prototype.toString.call(component)
+
+  let name = (str.match(/^\s*function\s+([^( ]+)/) || '')[1]
   if (!name) {
     // search for an existing indexed name for the given component:
     let index = -1
