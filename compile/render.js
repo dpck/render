@@ -1,8 +1,8 @@
 'use strict';
-const y = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-let z = a => `${a}`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"), C = a => 40 < `${a}`.length || -1 != `${a}`.indexOf("\n") || -1 !== `${a}`.indexOf("<");
-const D = {};
-function F(a) {
+const A = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+let B = a => `${a}`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"), D = a => 40 < `${a}`.length || -1 != `${a}`.indexOf("\n") || -1 !== `${a}`.indexOf("<");
+const E = {};
+function G(a) {
   const b = {...a.attributes, children:a.children};
   a = a.nodeName.defaultProps;
   if (void 0 !== a) {
@@ -12,13 +12,13 @@ function F(a) {
   }
   return b;
 }
-;const G = (a, {allAttributes:b, xml:e, b:k, sort:q} = {}) => {
-  let l;
-  const x = Object.keys(a);
-  q && x.sort();
-  return {c:x.map(d => {
-    var h = a[d];
-    if ("children" != d && !d.match(/[\s\n\\/='"\0<>]/) && (b || !["key", "ref"].includes(d))) {
+;const H = (a, b, {allAttributes:e, xml:k, c:q, sort:t, a:l} = {}) => {
+  let y;
+  const z = Object.keys(a);
+  t && z.sort();
+  return {f:z.map(d => {
+    var f = a[d];
+    if ("children" != d && !d.match(/[\s\n\\/='"\0<>]/) && (e || !["key", "ref"].includes(d))) {
       if ("className" == d) {
         if (a.class) {
           return;
@@ -39,121 +39,129 @@ function F(a) {
           }
         }
       }
-      k && d.match(/^xlink:?./) && (d = d.toLowerCase().replace(/^xlink:?/, "xlink:"));
-      if ("style" == d && h && "object" == typeof h) {
+      q && d.match(/^xlink:?./) && (d = d.toLowerCase().replace(/^xlink:?/, "xlink:"));
+      if ("style" == d && f && "object" == typeof f) {
         {
           let m = "";
-          for (let p in h) {
-            let r = h[p];
-            null != r && (m && (m += " "), m += D[p] || (D[p] = p.replace(/([A-Z])/g, "-$1").toLowerCase()), m += ": ", m += r, "number" == typeof r && !1 === y.test(p) && (m += "px"), m += ";");
+          for (var n in f) {
+            let r = f[n];
+            null != r && (m && (m += " "), m += E[n] || (E[n] = n.replace(/([A-Z])/g, "-$1").toLowerCase()), m += ": ", m += r, "number" == typeof r && !1 === A.test(n) && (m += "px"), m += ";");
           }
-          h = m || void 0;
+          f = m || void 0;
         }
       }
       if ("dangerouslySetInnerHTML" == d) {
-        l = h && h.__html;
+        y = f && f.__html;
       } else {
-        if ((h || 0 === h || "" === h) && "function" != typeof h) {
-          if (!0 === h || "" === h) {
-            if (h = d, !e) {
+        if ((f || 0 === f || "" === f) && "function" != typeof f) {
+          if (!0 === f || "" === f) {
+            if (f = d, !k) {
               return d;
             }
           }
-          return `${d}="${z(h)}"`;
+          n = "";
+          if ("value" == d) {
+            if ("select" == b) {
+              l = f;
+              return;
+            }
+            "option" == b && l == f && (n = "selected ");
+          }
+          return `${n}${d}="${B(f)}"`;
         }
       }
     }
-  }).filter(Boolean), a:l};
+  }).filter(Boolean), b:y, a:l};
 };
-const H = [], I = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
-function J(a, b = {}, e = {}, k = !1, q = !1) {
+const I = [], J = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+function K(a, b = {}, e = {}, k = !1, q = !1, t) {
   if (null == a || "boolean" == typeof a) {
     return "";
   }
-  const {pretty:l = !1, shallow:x = !1, renderRootComponent:d = !1, shallowHighOrder:h = !1, sortAttributes:m, allAttributes:p, xml:r, lineLength:A = 40, closeVoidTags:L = !1} = b;
-  let {nodeName:c, attributes:M = {}} = a;
-  var f = ["textarea", "pre"].includes(c);
-  const t = "string" == typeof l ? l : "  ";
+  const {pretty:l = !1, shallow:y = !1, renderRootComponent:z = !1, shallowHighOrder:d = !1, sortAttributes:f, allAttributes:n, xml:m, lineLength:r = 40, closeVoidTags:M = !1} = b;
+  let {nodeName:c, attributes:N = {}} = a;
+  var g = ["textarea", "pre"].includes(c);
+  const u = "string" == typeof l ? l : "  ";
   if ("object" != typeof a && !c) {
-    return z(a);
+    return B(a);
   }
   if ("function" == typeof c) {
-    if (!x || !k && d) {
-      return a = F(a), c.prototype && "function" == typeof c.prototype.render ? (f = new c(a, e), f._disable = f.__x = !0, f.props = a, f.context = e, c.getDerivedStateFromProps ? f.state = {...f.state, ...c.getDerivedStateFromProps(f.props, f.state)} : f.componentWillMount && f.componentWillMount(), a = f.render(f.props, f.state, f.context), f.getChildContext && (e = {...e, ...f.getChildContext()})) : a = c(a, e), J(a, b, e, h);
+    if (!y || !k && z) {
+      return a = G(a), c.prototype && "function" == typeof c.prototype.render ? (g = new c(a, e), g._disable = g.__x = !0, g.props = a, g.context = e, c.getDerivedStateFromProps ? g.state = {...g.state, ...c.getDerivedStateFromProps(g.props, g.state)} : g.componentWillMount && g.componentWillMount(), a = g.render(g.props, g.state, g.context), g.getChildContext && (e = {...e, ...g.getChildContext()})) : a = c(a, e), K(a, b, e, d, q, t);
     }
-    c = c.displayName || c !== Function && c.name || K(c);
+    c = c.displayName || c !== Function && c.name || L(c);
   }
-  let g = "";
-  ({c:u, a:k} = G(M, {allAttributes:p, xml:r, b:q, sort:m}));
+  let h = "";
+  ({f:v, b:k, a:t} = H(N, c, {allAttributes:n, xml:m, c:q, sort:f, a:t}));
   if (l) {
-    let v = `<${c}`.length;
-    g = u.reduce((n, B) => {
-      const E = v + 1 + B.length;
-      if (E > A) {
-        return v = t.length, `${n}\n${t}${B}`;
+    let w = `<${c}`.length;
+    h = v.reduce((p, C) => {
+      const F = w + 1 + C.length;
+      if (F > r) {
+        return w = u.length, `${p}\n${u}${C}`;
       }
-      v = E;
-      return `${n} ${B}`;
+      w = F;
+      return `${p} ${C}`;
     }, "");
   } else {
-    g = u.length ? " " + u.join(" ") : "";
+    h = v.length ? " " + v.join(" ") : "";
   }
-  g = `<${c}${g}>`;
+  h = `<${c}${h}>`;
   if (`${c}`.match(/[\s\n\\/='"\0<>]/)) {
-    throw g;
+    throw h;
   }
-  var u = `${c}`.match(I);
-  L && u && (g = g.replace(/>$/, " />"));
-  let w = [];
+  var v = `${c}`.match(J);
+  M && v && (h = h.replace(/>$/, " />"));
+  let x = [];
   if (k) {
-    l && (C(k) || k.length + N(g) > A) && (k = "\n" + t + `${k}`.replace(/(\n+)/g, "$1" + (t || "\t"))), g += k;
+    l && (D(k) || k.length + O(h) > r) && (k = "\n" + u + `${k}`.replace(/(\n+)/g, "$1" + (u || "\t"))), h += k;
   } else {
     if (a.children) {
-      let v = l && ~g.indexOf("\n");
-      w = a.children.map(n => {
-        if (null != n && !1 !== n && (n = J(n, b, e, !0, "svg" == c ? !0 : "foreignObject" == c ? !1 : q))) {
-          return l && n.length + N(g) > A && (v = !0), n;
+      let w = l && ~h.indexOf("\n");
+      x = a.children.map(p => {
+        if (null != p && !1 !== p && (p = K(p, b, e, !0, "svg" == c ? !0 : "foreignObject" == c ? !1 : q, t))) {
+          return l && p.length + O(h) > r && (w = !0), p;
         }
       }).filter(Boolean);
-      if (l && v && !f) {
-        for (a = w.length; a--;) {
-          w[a] = "\n" + t + `${w[a]}`.replace(/(\n+)/g, "$1" + (t || "\t"));
+      if (l && w && !g) {
+        for (a = x.length; a--;) {
+          x[a] = "\n" + u + `${x[a]}`.replace(/(\n+)/g, "$1" + (u || "\t"));
         }
       }
     }
   }
-  if (w.length) {
-    g += w.join("");
+  if (x.length) {
+    h += x.join("");
   } else {
-    if (r) {
-      return g.substring(0, g.length - 1) + " />";
+    if (m) {
+      return h.substring(0, h.length - 1) + " />";
     }
   }
-  u || (!f && l && ~g.indexOf("\n") && (g += "\n"), g += `</${c}>`);
-  return g;
+  v || (!g && l && ~h.indexOf("\n") && (h += "\n"), h += `</${c}>`);
+  return h;
 }
-function K(a) {
+function L(a) {
   var b = (Function.prototype.toString.call(a).match(/^\s*function\s+([^( ]+)/) || "")[1];
   if (!b) {
     b = -1;
-    for (let e = H.length; e--;) {
-      if (H[e] === a) {
+    for (let e = I.length; e--;) {
+      if (I[e] === a) {
         b = e;
         break;
       }
     }
-    0 > b && (b = H.push(a) - 1);
+    0 > b && (b = I.push(a) - 1);
     b = `UnnamedComponent${b}`;
   }
   return b;
 }
-const N = a => {
+const O = a => {
   a = a.split("\n");
   return a[a.length - 1].length;
 };
 module.exports = (a, b = {}, e = {}) => {
   const {addDoctype:k, pretty:q} = b;
-  a = J(a, b, e);
+  a = K(a, b, e);
   return k ? `<!doctype html>${q ? "\n" : ""}${a}` : a;
 };
 
