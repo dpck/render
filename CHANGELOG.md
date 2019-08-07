@@ -2,7 +2,7 @@
 
 ### [1.3.0](https://github.com/dpck/render/compare/v1.2.1...v1.3.0)
 
-- [feature] Compile with _Depack_.
+- [feature] Compile with [_Depack_](https://compiler.page).
 - [feature] Use the `value` on _<select>_ elements to select an option.
 
 ## 24 July 2019
