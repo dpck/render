@@ -36,9 +36,10 @@ const render = (vnode, config = {}, context = {}) => {
  * @param {!Object} [context]
  * @param {boolean} [inner]
  * @param {boolean} [isSvgMode]
+ * @param {string} [selectValue] Used to set the value of options via select's value `attribute`.
  */
 function renderToString(
-  vnode, opts = {}, context = {}, inner = false, isSvgMode = false
+  vnode, opts = {}, context = {}, inner = false, isSvgMode = false, selectValue,
 ) {
   if (vnode==null || typeof vnode=='boolean') {
     return ''
@@ -100,7 +101,7 @@ function renderToString(
         }
       }
 
-      return renderToString(rendered, opts, context, shallowHighOrder)
+      return renderToString(rendered, opts, context, shallowHighOrder, isSvgMode, selectValue)
     }
   }
 
@@ -108,8 +109,8 @@ function renderToString(
   let s = '', html
 
   let mappedAttributes
-  ;({ mappedAttributes, html } = mapAttributes(/** @type {!Object} */ (attributes), {
-    allAttributes, xml, isSvgMode, sort: sortAttributes,
+  ;({ mappedAttributes, html, selectValue } = mapAttributes(/** @type {!Object} */ (attributes), nodeName, {
+    allAttributes, xml, isSvgMode, sort: sortAttributes, selectValue,
   }))
 
   // account for >1 multiline attribute
@@ -150,7 +151,7 @@ function renderToString(
     pieces = vnode.children.map((child) => {
       if (child==null || child===false) return
       const childSvgMode = nodeName == 'svg' ? true : nodeName == 'foreignObject' ? false : isSvgMode
-      const ret = renderToString(child, opts, context, true, childSvgMode)
+      const ret = renderToString(child, opts, context, true, childSvgMode, selectValue)
       if (!ret) return
       if (pretty && ret.length + getLastLineLength(s) > lineLength)
         hasLarge = true

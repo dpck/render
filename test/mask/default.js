@@ -14,6 +14,18 @@ export default makeTestSuite('test/result/index.html', {
   context: JSXContext,
 })
 
+export const Render = makeTestSuite('test/result/render', {
+  /**
+   * @param {JSXContext} c
+   */
+  getResults({ getVNode }) {
+    const test = getVNode(this.input)
+    const res = render(test)
+    return res
+  },
+  context: JSXContext,
+})
+
 export const pretty = makeTestSuite('test/result/pretty.html', {
   /**
    * @param {JSXContext} c

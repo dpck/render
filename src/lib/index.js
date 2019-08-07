@@ -3,14 +3,15 @@ import { encodeEntities, styleObjToCss } from '../util'
 /**
  * Maps attributes to `name="value"` strings, and returns html if dangerouslySetInnerHTML is given.
  * @param {!Object<string, ?>} attributes
+ * @param {string} nodeName
  * @param {Object} [props]
  * @param {boolean} [props.allAttributes=false]
  * @param {boolean} [props.xml=false]
  * @param {boolean} [props.isSvgMode=false]
  * @param {boolean} [props.sort=false]
  */
-export const mapAttributes = (attributes, {
-  allAttributes, xml, isSvgMode, sort,
+export const mapAttributes = (attributes, nodeName, {
+  allAttributes, xml, isSvgMode, sort, selectValue,
 } = {}) => {
   let html
   const attrs = Object.keys(attributes)
@@ -44,8 +45,17 @@ export const mapAttributes = (attributes, {
         // in non-xml mode, allow boolean attributes
         if (!xml) return name
       }
-      return `${name}="${encodeEntities(v)}"`
+      let s = ''
+      if (name == 'value') {
+        if (nodeName == 'select') {
+          selectValue = v
+          return
+        } else if (nodeName == 'option' && selectValue == v) {
+          s = 'selected '
+        }
+      }
+      return `${s}${name}="${encodeEntities(v)}"`
     }
   }).filter(Boolean)
-  return { mappedAttributes: a, html }
+  return { mappedAttributes: a, html, selectValue }
 }

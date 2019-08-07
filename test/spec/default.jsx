@@ -16,7 +16,7 @@ const T = {
     })
     deepEqual(res, {
       mappedAttributes: [ 'attr1="test"', 'attrs' ],
-      html: undefined })
+      html: undefined, selectValue: undefined })
   },
   'adds doctype'() {
     const res = render(<div />, {
