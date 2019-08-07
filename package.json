@@ -49,10 +49,10 @@
   "devDependencies": {
     "@a-la/jsx": "^1.6.0",
     "@depack/context": "^1.1.2",
-    "@externs/preact": "^1.1.0",
+    "@externs/preact": "^1.2.0",
     "@idio/core": "^1.4.0",
     "alamode": "^2.4.0",
-    "documentary": "^1.30.2",
+    "documentary": "^1.30.3",
     "eslint-config-artdeco": "1.0.1",
     "preact": "^8.5.0",
     "rqt": "^4.0.0",

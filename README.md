@@ -13,13 +13,15 @@ yarn add -E @depack/render
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
 - [`render(vnode: VNode, config?: RenderConfig, context?: *): string`](#rendervnode-vnodeconfig-renderconfigcontext--string)
-  * [`RenderConfig`](#type-renderconfig)
+  * [`_depack.RenderConfig`](#type-_depackrenderconfig)
 - [**Pretty Render**](#pretty-render)
 - [**Server-Side Rendering**](#server-side-rendering)
 - [Fork Improvements](#fork-improvements)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## API
 
@@ -29,24 +31,28 @@ The package is available by importing its default function:
 import render from '@depack/render'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
 ## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`config?: RenderConfig,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): string`
 
 Renders the _VNode_ into the string.
 
-`import('preact').VNode` __<a name="type-preactvnode">`preact.VNode`</a>__
+<strong><a name="type-_depackrenderconfig">`_depack.RenderConfig`</a></strong>: Rendering options.
 
-__<a name="type-renderconfig">`RenderConfig`</a>__: Rendering options.
-
-|     Name      |       Type       |                                                    Description                                                    | Default |
-| ------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
-| addDoctype    | <em>boolean</em> | Adds the `<!doctype html>` at the beginning of the return string.                                                 | `false` |
-| shallow       | <em>boolean</em> | If `true`, renders nested Components as HTML elements (`&lt;Foo a="b" /&gt;`).                                    | `false` |
-| xml           | <em>boolean</em> | If `true`, uses self-closing tags for elements without children.                                                  | `false` |
-| pretty        | <em>boolean</em> | If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. | `false` |
-| lineLength    | <em>number</em>  | The number of characters on one line above which the line should be split in the `pretty` mode.                   | `40`    |
-| closeVoidTags | <em>boolean</em> | Whether the void tags will be auto-closed (for xhtml support).                                                    | `false` |
+|        Name         |       Type       |                                                    Description                                                    | Default |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+| addDoctype          | <em>boolean</em> | Adds the `<!doctype html>` at the beginning of the return string.                                                 | `false` |
+| shallow             | <em>boolean</em> | If `true`, renders nested Components as HTML elements (`&lt;Foo a="b" /&gt;`).                                    | `false` |
+| xml                 | <em>boolean</em> | If `true`, uses self-closing tags for elements without children.                                                  | `false` |
+| pretty              | <em>boolean</em> | If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. | `false` |
+| lineLength          | <em>number</em>  | The number of characters on one line above which the line should be split in the `pretty` mode.                   | `40`    |
+| closeVoidTags       | <em>boolean</em> | Whether the void tags will be auto-closed (for xhtml support).                                                    | `false` |
+| renderRootComponent | <em>boolean</em> | When shallow rendering is on, will render root component.                                                         | `false` |
+| shallowHighOrder    | <em>boolean</em> | When shallow rendering is on, will render root component.                                                         | `false` |
+| sortAttributes      | <em>boolean</em> | Sort attributes' keys using the `.sort` method.                                                                   | `false` |
+| allAttributes       | <em>boolean</em> | Render all attributes, including `key` and `ref`.                                                                 | `false` |
 
 ```jsx
 /* yarn example/ */
@@ -64,7 +70,9 @@ console.log(s)
 <div class="hello"><span id="name"></span></div>
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## **Pretty Render**
 
@@ -109,7 +117,9 @@ console.log(s)
 </div>
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/3.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/3.svg?sanitize=true">
+</a></p>
 
 ## **Server-Side Rendering**
 
@@ -179,7 +189,9 @@ There are some limitation such as
 
 * no `>` or `<` in expressions or comments, e.g., `for (let i=0; i<10; i++) { ... }` &mdash; the function needs to be taken out of JSX scope. This is due to how the parser finds closing `>` tags: the number of opening to closing `>` must be equal.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/4.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/4.svg?sanitize=true">
+</a></p>
 
 ## Fork Improvements
 
@@ -187,7 +199,9 @@ There are a number of new features that the fork has:
 
 * Render `htmlFor` into plain `for` attribute.
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/5.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/5.svg?sanitize=true">
+</a></p>
 
 ## Copyright
 
@@ -210,4 +224,6 @@ There are a number of new features that the fork has:
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>
