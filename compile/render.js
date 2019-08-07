@@ -20,7 +20,7 @@ function F(a) {
     var h = a[d];
     if ("children" != d && !d.match(/[\s\n\\/='"\0<>]/) && (b || !["key", "ref"].includes(d))) {
       if ("className" == d) {
-        if (a.f) {
+        if (a.class) {
           return;
         }
         d = "class";

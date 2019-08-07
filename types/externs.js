@@ -64,5 +64,5 @@ _depack.RenderConfig.prototype.allAttributes
 
 /* manual */
 // /** @type {{ class: string, for: string, srcset: string }} */
-/** @type {{ dangerouslySetInnerHTML: {__html: string} }} */
+/** @type {{ dangerouslySetInnerHTML: {__html: string}, class: string }} */
 _depack.PreactAttributes
