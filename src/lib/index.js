@@ -59,3 +59,14 @@ export const mapAttributes = (attributes, nodeName, {
   }).filter(Boolean)
   return { mappedAttributes: a, html, selectValue }
 }
+
+export const inlineElements = [
+  'a', 'abbr', 'acronym', 'audio', 'b', 'bdi', 'bdo', 'big', 'br',
+  'button', 'canvas', 'cite', 'code', 'data', 'datalist', 'del',
+  'dfn', 'em', 'embed', 'i', 'iframe', 'img', 'input', 'ins',
+  'kbd', 'label', 'map', 'mark', 'meter', 'noscript', 'object',
+  'output', 'picture', 'progress', 'q', 'ruby', 's', 'samp',
+  'slot', 'small', 'span', 'strong', 'sub',
+  'sup', 'svg', 'template', 'textarea', 'time', 'u', 'tt', 'var',
+  'video', 'wbr',
+]

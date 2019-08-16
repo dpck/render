@@ -1,10 +1,11 @@
 import { encodeEntities, indent, isLargeString, getNodeProps } from './util'
-import { mapAttributes } from './lib'
+import { mapAttributes, inlineElements } from './lib'
 
 // components without names, kept as a hash for later comparison to return consistent UnnamedComponentXX names.
 const UNNAMED = []
 
 const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/
+const INLINE_ELEMENTS = new RegExp(`^(${inlineElements.join('|')})$`)
 
 /** Only render elements, leaving Components inline as `<ComponentName ... />`.
  * This method is just a convenience alias for `render(vnode, context, { shallow:true })`
@@ -147,7 +148,7 @@ function renderToString(
     s += html
   }
   else if (vnode.children) {
-    let hasLarge = pretty && ~s.indexOf('\n')
+    let hasLarge = pretty && s.includes('\n')
     pieces = vnode.children.map((child) => {
       if (child==null || child===false) return
       const childSvgMode = nodeName == 'svg' ? true : nodeName == 'foreignObject' ? false : isSvgMode
@@ -173,7 +174,11 @@ function renderToString(
   }
 
   if (!isVoid) {
-    if (!noPretty && pretty && ~s.indexOf('\n')) s += '\n'
+    // inline elements should not have additional whitespace
+    // however if there were other tags inside them, that should be fine
+    const lastPiece = pieces[pieces.length - 1]
+    const isInline = `${nodeName}`.match(INLINE_ELEMENTS) && (lastPiece ? !/>$/.test(lastPiece) : true)
+    if (!isInline && !noPretty && pretty && s.includes('\n')) s += '\n'
     s += `</${nodeName}>`
   }
 
