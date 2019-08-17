@@ -35,7 +35,7 @@ import render from '@depack/render'
   <img src="/.documentary/section-breaks/1.svg?sanitize=true">
 </a></p>
 
-## `render(`<br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`config?: RenderConfig,`<br/>&nbsp;&nbsp;`context?: *,`<br/>`): string`
+## <code><ins>render</ins>(</code><sub><br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`config?: RenderConfig,`<br/>&nbsp;&nbsp;`context?: *,`<br/></sub><code>): <i>string</i></code>
 
 Renders the _VNode_ into the string.
 
@@ -48,6 +48,7 @@ Renders the _VNode_ into the string.
 | xml                 | <em>boolean</em> | If `true`, uses self-closing tags for elements without children.                                                  | `false` |
 | pretty              | <em>boolean</em> | If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. | `false` |
 | lineLength          | <em>number</em>  | The number of characters on one line above which the line should be split in the `pretty` mode.                   | `40`    |
+| initialPadding      | <em>number</em>  | The initial padding to apply to each line when pretty printing.                                                   | `0`     |
 | closeVoidTags       | <em>boolean</em> | Whether the void tags will be auto-closed (for xhtml support).                                                    | `false` |
 | renderRootComponent | <em>boolean</em> | When shallow rendering is on, will render root component.                                                         | `false` |
 | shallowHighOrder    | <em>boolean</em> | When shallow rendering is on, will render root component.                                                         | `false` |
