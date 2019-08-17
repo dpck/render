@@ -82,3 +82,10 @@
             <img the capacity of thinking>
           </a>
 /**/
+
+// does not indent pre with dangerouslySetInnerHTML
+<pre dangerouslySetInnerHTML={{__html: 'Your name, your name, what is your name?'}}/>
+
+/* expected */
+<pre>Your name, your name, what is your name?</pre>
+/**/

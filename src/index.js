@@ -147,7 +147,7 @@ function renderToString(
   let pieces = []
   if (html) {
     // if multiline, indent.
-    if (pretty && (isLargeString(html) || html.length + getLastLineLength(s) > lineLength)) {
+    if (!noPretty && pretty && (isLargeString(html) || html.length + getLastLineLength(s) > lineLength)) {
       html = '\n' + indentChar + indent(html, indentChar)
     }
     s += html
