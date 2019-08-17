@@ -17,6 +17,9 @@
     <prop number name="lineLength" default="40">
       The number of characters on one line above which the line should be split in the `pretty` mode.
     </prop>
+    <prop number name="initialPadding" default="0">
+      The initial padding to apply to each line when pretty printing.
+    </prop>
     <prop boolean name="closeVoidTags" default="false">
       Whether the void tags will be auto-closed (for xhtml support).
     </prop>

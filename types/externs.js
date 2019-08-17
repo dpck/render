@@ -12,22 +12,22 @@ var _depack = {}
  */
 _depack.RenderConfig
 /**
- * Adds the `<!doctype html>` at the beginning of the return string.
+ * Adds the `<!doctype html>` at the beginning of the return string. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.addDoctype
 /**
- * If `true`, renders nested Components as HTML elements (`<Foo a="b" />`).
+ * If `true`, renders nested Components as HTML elements (`<Foo a="b" />`). Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.shallow
 /**
- * If `true`, uses self-closing tags for elements without children.
+ * If `true`, uses self-closing tags for elements without children. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.xml
 /**
- * If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`.
+ * If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.pretty
@@ -37,27 +37,32 @@ _depack.RenderConfig.prototype.pretty
  */
 _depack.RenderConfig.prototype.lineLength
 /**
- * Whether the void tags will be auto-closed (for xhtml support).
+ * The initial padding to apply to each line when pretty printing. Default `0`.
+ * @type {number|undefined}
+ */
+_depack.RenderConfig.prototype.initialPadding
+/**
+ * Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.closeVoidTags
 /**
- * When shallow rendering is on, will render root component.
+ * When shallow rendering is on, will render root component. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.renderRootComponent
 /**
- * When shallow rendering is on, will render root component.
+ * When shallow rendering is on, will render root component. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.shallowHighOrder
 /**
- * Sort attributes' keys using the `.sort` method.
+ * Sort attributes' keys using the `.sort` method. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.sortAttributes
 /**
- * Render all attributes, including `key` and `ref`.
+ * Render all attributes, including `key` and `ref`. Default `false`.
  * @type {boolean|undefined}
  */
 _depack.RenderConfig.prototype.allAttributes

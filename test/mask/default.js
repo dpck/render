@@ -32,8 +32,9 @@ export const pretty = makeTestSuite('test/result/pretty.html', {
    */
   getResults({ getVNode }) {
     const test = getVNode(this.input)
-    const res = render(test, { pretty: true })
+    const res = render(test, { pretty: true, ...(this.options || {}) })
     return res
   },
   context: JSXContext,
+  jsProps: ['options'],
 })

@@ -13,6 +13,7 @@ const _render = require('./render')
  * @param {boolean} [config.xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @param {boolean} [config.pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @param {number} [config.lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @param {number} [config.initialPadding=0] The initial padding to apply to each line when pretty printing. Default `0`.
  * @param {boolean} [config.closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  * @param {boolean} [config.renderRootComponent=false] When shallow rendering is on, will render root component. Default `false`.
  * @param {boolean} [config.shallowHighOrder=false] When shallow rendering is on, will render root component. Default `false`.
@@ -38,6 +39,7 @@ module.exports = render
  * @prop {boolean} [xml=false] If `true`, uses self-closing tags for elements without children. Default `false`.
  * @prop {boolean} [pretty=false] If `true`, adds `  ` whitespace for readability. Pass a string to indicate the indentation character, e.g., `\t`. Default `false`.
  * @prop {number} [lineLength=40] The number of characters on one line above which the line should be split in the `pretty` mode. Default `40`.
+ * @prop {number} [initialPadding=0] The initial padding to apply to each line when pretty printing. Default `0`.
  * @prop {boolean} [closeVoidTags=false] Whether the void tags will be auto-closed (for xhtml support). Default `false`.
  * @prop {boolean} [renderRootComponent=false] When shallow rendering is on, will render root component. Default `false`.
  * @prop {boolean} [shallowHighOrder=false] When shallow rendering is on, will render root component. Default `false`.
@@ -62,25 +64,26 @@ module.exports = render
 /* typal node_modules/@externs/preact/types/component.xml namespace */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {preact.Component} Component `＠constructor` Preact component.
+ * @typedef {preact.Component} Component `＠constructor` A base class that is usually subclassed to create stateful _Preact_ components.
  */
 /**
  * @suppress {nonStandardJsDocs}
- * @typedef {Object} preact.Component `＠constructor` Preact component.
+ * @typedef {Object} preact.Component `＠constructor` A base class that is usually subclassed to create stateful _Preact_ components.
+ * @prop {function(!Object=, !Object=): preact.Component} constructor Constructor method.
  * @prop {boolean} [_disable] Turns off stateful re-rendering.
  * @prop {boolean} [__x] An alias for `_disable`.
  * @prop {!Object} context The context.
  * @prop {!Object} props The properties.
  * @prop {!Object} state The state.
- * @prop {function(!Object,function(): void=): void} setState
- * @prop {function(function(): void=): void} forceUpdate
- * @prop {function(!Object=,!Object=,!Object=): preact.VNode} render
- * @prop {function(): void} componentWillMount
- * @prop {function(): void} componentDidMount
- * @prop {function(): void} componentWillUnmount
+ * @prop {function(!Object,function(): void=)} setState
+ * @prop {function(function(): void=)} forceUpdate
+ * @prop {function(!Object=,!Object=,!Object=): preact.VNode} render The `render()` function is required for all components. It can inspect the props and state of the component, and should return a _Preact_ element or `null`.
+ * @prop {function()} componentWillMount Called before the component gets mounted to the DOM.
+ * @prop {function()} componentDidMount Called after the component gets mounted to the DOM.
+ * @prop {function()} componentWillUnmount Called prior to removal from the DOM.
  * @prop {function(): !Object} getChildContext
- * @prop {function(!Object=,!Object=): void} componentWillReceiveProps
- * @prop {function(!Object=,!Object=,!Object=): boolean} shouldComponentUpdate
- * @prop {function(!Object=,!Object=,!Object=): void} componentWillUpdate
- * @prop {function(!Object=,!Object=,!Object=): void} componentDidUpdate
+ * @prop {function(!Object=,!Object=)} componentWillReceiveProps Called before new props get accepted.
+ * @prop {function(!Object=,!Object=,!Object=): boolean} shouldComponentUpdate Called before `render()`. Should return `false` to skip render.
+ * @prop {function(!Object=,!Object=,!Object=)} componentWillUpdate Called before `render()`.
+ * @prop {function(!Object=,!Object=,!Object=)} componentDidUpdate Called after `render()`.
  */

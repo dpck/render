@@ -54,15 +54,20 @@ function renderToString(
     sortAttributes,
     allAttributes,
     xml,
-    lineLength = 40,
+    initialPadding = 0,
     closeVoidTags = false,
   } = opts
+
+  let { lineLength = 40 } = opts
+  lineLength -= initialPadding
 
   let { nodeName, attributes = {} } = vnode
 
   const noPretty = ['textarea', 'pre'].includes(nodeName)
+  const ip = ' '.repeat(initialPadding)
 
-  const indentChar = typeof pretty == 'string' ? pretty : '  '
+  const indentChar = typeof pretty == 'string' ? pretty :
+    `  ${ip}`
 
   // #text nodes
   if (typeof vnode!='object' && !nodeName) {
@@ -178,7 +183,7 @@ function renderToString(
     // however if there were other tags inside them, that should be fine
     const lastPiece = pieces[pieces.length - 1]
     const isInline = `${nodeName}`.match(INLINE_ELEMENTS) && (lastPiece ? !/>$/.test(lastPiece) : true)
-    if (!isInline && !noPretty && pretty && s.includes('\n')) s += '\n'
+    if (!isInline && !noPretty && pretty && s.includes('\n')) s += `\n${ip}`
     s += `</${nodeName}>`
   }
 
