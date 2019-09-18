@@ -15,8 +15,7 @@
   <span class="test" required
     data-attr="render" data-test id="i501"
     style="display:block;">
-    Hello World</span>
-  <textarea>Example Textarea That Has Large Input According To The Preact Logic. We must not new line this value.</textarea>
+    Hello World</span><textarea>Example Textarea That Has Large Input According To The Preact Logic. We must not new line this value.</textarea>
 </div>
 /**/
 
@@ -49,6 +48,20 @@
   class="form-text text-muted">
   <hello world></hello>
   test</a>
+/**/
+
+// does not add whitespace for inline strong
+<span>
+  <strong>S</strong>oftware Engineering is a craft that involves implementation, testing, documentation, building and maintenance. With our holistic approach, we are able to deliver best quality software.
+</span>
+
+/* expected */
+<span>
+  <strong>S</strong>oftware Engineering
+  is a craft that involves implementation,
+  testing, documentation, building
+  and maintenance. With our holistic
+  approach, we are able to deliver best quality software.</span>
 /**/
 
 // adds whitespace for <a> without plain
@@ -88,4 +101,14 @@
 
 /* expected */
 <pre>Your name, your name, what is your name?</pre>
+/**/
+
+// does not indent pre with dangerouslySetInnerHTML with new line
+<pre dangerouslySetInnerHTML={{__html: JSON.stringify({ test: 123, me: 321 }, null, 2)}}/>
+
+/* expected */
+<pre>{
+  "test": 123,
+  "me": 321
+}</pre>
 /**/

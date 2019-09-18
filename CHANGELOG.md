@@ -1,3 +1,9 @@
+## 18 September 2019
+
+### [1.3.3](https://github.com/dpck/render/compare/v1.3.2...v1.3.3)
+
+- [fix] Correct indentation of inline tags.
+
 ## 17 August 2019
 
 ### [1.3.2](https://github.com/dpck/render/compare/v1.3.1...v1.3.2)

@@ -154,20 +154,55 @@ function renderToString(
   }
   else if (vnode.children) {
     let hasLarge = pretty && s.includes('\n')
-    pieces = vnode.children.map((child) => {
+    const noPrettyPieces = []
+    pieces = vnode.children.map((child, j) => {
       if (child==null || child===false) return
       const childSvgMode = nodeName == 'svg' ? true : nodeName == 'foreignObject' ? false : isSvgMode
       const ret = renderToString(child, opts, context, true, childSvgMode, selectValue)
       if (!ret) return
       if (pretty && ret.length + getLastLineLength(s) > lineLength)
         hasLarge = true
+      const rr = ret.replace(new RegExp(`</${child.nodeName}>$`), '')
+      if (isNodeInline(child.nodeName, rr)) noPrettyPieces[j] = ret.length
       return ret
     }).filter(Boolean)
 
     if (pretty && hasLarge && !noPretty) {
-      for (let i=pieces.length; i--;) {
-        pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar)
-      }
+      pieces = pieces.reduce((acc, p, i) => {
+        const shouldSkipPretty = noPrettyPieces[i - 1] // length of prev inline
+        let currentBlockElement = shouldSkipPretty && /^<([\s\S]+?)>/.exec(p)
+        if (currentBlockElement) {
+          [, currentBlockElement] = currentBlockElement
+          currentBlockElement = !INLINE_ELEMENTS.test(currentBlockElement)
+        }
+        if (shouldSkipPretty && !currentBlockElement) {
+          const re = /[^<]*?(\s)/y
+          let rres
+          let firstMatch = true
+          let lastWs
+          while ((rres = re.exec(p)) !== null) {
+            const [match] = /** @type {!Iterable}*/ (rres)
+            ;([,lastWs] = /** @type {!Iterable}*/ (rres))
+            const j = re.lastIndex + match.length - 1
+            if (j > lineLength - (firstMatch ? shouldSkipPretty : 0)) {
+              const before = p.slice(0, re.lastIndex - 1)
+              p = p.slice(re.lastIndex)
+              if (firstMatch) {
+                acc.push(before)
+                firstMatch = false
+              } else {
+                acc.push('\n' + indentChar + indent(before, indentChar))
+              }
+              re.lastIndex = 0
+            }
+          }
+          if (lastWs) acc.push(lastWs)
+          acc.push(p)
+        } else {
+          acc.push('\n' + indentChar + indent(p, indentChar))
+        }
+        return acc
+      }, [])
     }
   }
 
@@ -182,12 +217,16 @@ function renderToString(
     // inline elements should not have additional whitespace
     // however if there were other tags inside them, that should be fine
     const lastPiece = pieces[pieces.length - 1]
-    const isInline = `${nodeName}`.match(INLINE_ELEMENTS) && (lastPiece ? !/>$/.test(lastPiece) : true)
+    const isInline = isNodeInline(nodeName, lastPiece)
     if (!isInline && !noPretty && pretty && s.includes('\n')) s += `\n${ip}`
     s += `</${nodeName}>`
   }
 
   return s
+}
+
+const isNodeInline = (nodeName, lastPiece) => {
+  return `${nodeName}`.match(INLINE_ELEMENTS) && (lastPiece ? !/>$/.test(lastPiece) : true)
 }
 
 /**
