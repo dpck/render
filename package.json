@@ -45,7 +45,7 @@
   "bugs": {
     "url": "https://github.com/dpck/render/issues"
   },
-  "homepage": "https://github.com/dpck/render#readme",
+  "homepage": "https://compiler.page",
   "devDependencies": {
     "@a-la/jsx": "^1.6.0",
     "@depack/context": "^1.1.2",
