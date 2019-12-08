@@ -1,3 +1,9 @@
+## 9 December 2019
+
+### [1.3.4](https://github.com/dpck/render/compare/v1.3.3...v1.3.4)
+
+- [fix] Fix `child.nodeName` bug.
+
 ## 18 September 2019
 
 ### [1.3.3](https://github.com/dpck/render/compare/v1.3.2...v1.3.3)
