@@ -126,8 +126,10 @@ function S(a, b = {}, e = {}, l = !1, v = !1, x) {
           var t = S(h, b, e, !0, "svg" == c ? !0 : "foreignObject" == c ? !1 : v, x);
           if (t) {
             m && t.length + U(g) > C && (A = !0);
-            var k = t.replace(new RegExp(`</${h.nodeName}>$`), "");
-            X(h.nodeName, k) && (D[n] = t.length);
+            if ("string" == typeof h.nodeName) {
+              const k = t.replace(new RegExp(`</${h.nodeName}>$`), "");
+              X(h.nodeName, k) && (D[n] = t.length);
+            }
             return t;
           }
         }

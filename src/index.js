@@ -162,8 +162,10 @@ function renderToString(
       if (!ret) return
       if (pretty && ret.length + getLastLineLength(s) > lineLength)
         hasLarge = true
-      const rr = ret.replace(new RegExp(`</${child.nodeName}>$`), '')
-      if (isNodeInline(child.nodeName, rr)) noPrettyPieces[j] = ret.length
+      if (typeof child.nodeName == 'string') {
+        const rr = ret.replace(new RegExp(`</${child.nodeName}>$`), '')
+        if (isNodeInline(child.nodeName, rr)) noPrettyPieces[j] = ret.length
+      }
       return ret
     }).filter(Boolean)
 
