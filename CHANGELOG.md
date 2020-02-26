@@ -1,3 +1,9 @@
+## 26 February 2020
+
+### [1.3.5](https://github.com/dpck/render/compare/v1.3.4...v1.3.5)
+
+- [deps] Update dependencies.
+
 ## 9 December 2019
 
 ### [1.3.4](https://github.com/dpck/render/compare/v1.3.3...v1.3.4)
