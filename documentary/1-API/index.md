@@ -8,17 +8,11 @@ import render from '@depack/render'
 
 %~%
 
-```## render => string
-[
-  ["vnode", "VNode"],
-  ["config?", "RenderConfig"],
-  ["context?", "*"]
-]
-```
+<include-typedefs>@externs/preact</include-typedefs>
 
-Renders the _VNode_ into the string.
+<typedef name="render">types/api.xml</typedef>
 
-%TYPEDEF types/index.xml%
+<typedef>types/index.xml</typedef>
 
 %EXAMPLE: example, ../src => @depack/render%
 %FORK-html example%

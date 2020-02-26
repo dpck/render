@@ -1,0 +1,10 @@
+{
+  "_depack.render": {
+    "link": "https://github.com/dpck/render#rendervnode-preactvnodeconfig-renderconfigcontext--string",
+    "description": "Renders the _VNode_ into the string."
+  },
+  "_depack.RenderConfig": {
+    "link": "https://github.com/dpck/render#type-renderconfig",
+    "description": "Rendering options."
+  }
+}

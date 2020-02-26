@@ -12,8 +12,8 @@ yarn add -E @depack/render
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`render(vnode: VNode, config?: RenderConfig, context?: *): string`](#rendervnode-vnodeconfig-renderconfigcontext--string)
-  * [`_depack.RenderConfig`](#type-_depackrenderconfig)
+- [`render(vnode: preact.VNode, config=: !RenderConfig, context=: *): string`](#rendervnode-preactvnodeconfig-renderconfigcontext--string)
+  * [`RenderConfig`](#type-renderconfig)
 - [**Pretty Render**](#pretty-render)
 - [**Server-Side Rendering**](#server-side-rendering)
 - [Fork Improvements](#fork-improvements)
@@ -35,11 +35,16 @@ import render from '@depack/render'
   <img src="/.documentary/section-breaks/1.svg?sanitize=true">
 </a></p>
 
-## <code><ins>render</ins>(</code><sub><br/>&nbsp;&nbsp;`vnode: VNode,`<br/>&nbsp;&nbsp;`config?: RenderConfig,`<br/>&nbsp;&nbsp;`context?: *,`<br/></sub><code>): <i>string</i></code>
 
+## <code><ins>render</ins>(</code><sub><br/>&nbsp;&nbsp;`vnode: preact.VNode,`<br/>&nbsp;&nbsp;`config=: !RenderConfig,`<br/>&nbsp;&nbsp;`context=: *,`<br/></sub><code>): <i>string</i></code>
 Renders the _VNode_ into the string.
 
-<strong><a name="type-_depackrenderconfig">`_depack.RenderConfig`</a></strong>: Rendering options.
+ - <kbd><strong>vnode*</strong></kbd> <em><code><a href="https://github.com/externs/preact/wiki/VNode#type-vnode" title="Virtual DOM Node.">preact.VNode</a></code></em>: The VNode to render. Can be written in JSX syntax in `.jsx` files.
+ - <kbd>config</kbd> <em><code><a href="#type-renderconfig" title="Rendering options.">!RenderConfig</a></code></em> (optional): Additional optional config.
+ - <kbd>context</kbd> <em>`*`</em> (optional): The context for the node.
+
+__<a name="type-renderconfig">`RenderConfig`</a>__: Rendering options.
+
 
 |        Name         |       Type       |                                                    Description                                                    | Default |
 | ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |

@@ -1,7 +1,7 @@
 <types namespace="_depack">
   <!-- import name="VNode" from="@externs/preact" ns="preact" /> -->
 
-  <type record name="RenderConfig" desc="Rendering options.">
+  <record name="RenderConfig" desc="Rendering options.">
     <prop boolean name="addDoctype" default="false">
       Adds the `<!doctype html>` at the beginning of the return string.
     </prop>
@@ -35,5 +35,5 @@
     <prop boolean name="allAttributes" default="false">
       Render all attributes, including `key` and `ref`.
     </prop>
-  </type>
+  </record>
 </types>

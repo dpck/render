@@ -1,0 +1,14 @@
+<types namespace="_depack">
+  <method name="render" return="string">
+    <arg type="preact.VNode" name="vnode">
+      The VNode to render. Can be written in JSX syntax in `.jsx` files.
+    </arg>
+    <arg opt type="!_depack.RenderConfig" name="config">
+      Additional optional config.
+    </arg>
+    <arg opt name="context">
+      The context for the node.
+    </arg>
+    Renders the _VNode_ into the string.
+  </method>
+</types>
