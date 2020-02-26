@@ -1,5 +1,9 @@
 ## 26 February 2020
 
+### [1.4.0](https://github.com/dpck/render/compare/v1.3.5...v1.4.0)
+
+- [doc] Add API and `typedefs.json`.
+
 ### [1.3.5](https://github.com/dpck/render/compare/v1.3.4...v1.3.5)
 
 - [deps] Update dependencies.
