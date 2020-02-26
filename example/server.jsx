@@ -1,6 +1,6 @@
 import rqt from 'rqt'
 /* start example */
-import idio from '@idio/core'
+import idio from '@idio/idio'
 import render from '../src'
 
 const Html = ({ name }) => (<html>
@@ -21,7 +21,7 @@ const Html = ({ name }) => (<html>
 
 const Server = async (name) => {
   const { app, url } = await idio()
-  app.use(async (ctx) => {
+  app.use((ctx) => {
     ctx.body = render(
       (<Html name={name}/>),
       { addDoctype: true,

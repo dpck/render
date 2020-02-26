@@ -9,16 +9,17 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "test-compile": "ALAMODE_ENV=test-compile yarn test",
+    "test-compile": "yarn test -e test-compile",
     "compile": "depack src/depack -o compile/render.js -a -c -p --source_map_include_content",
     "lint": "eslint .",
-    "doc": "NODE_DEBUG=doc doc -o README.md",
+    "doc": "doc -o README.md -d",
     "b": "alamode src -o build -s",
     "d": "yarn-s d1 externs",
     "d1": "typal compile/index.js -c",
     "externs": "typal types/externs.js",
     "build": "yarn-s d b doc",
-    "e": "alanode"
+    "e": "alanode",
+    "up": "yarn-up -u -e preact"
   },
   "files": [
     "compile",
@@ -45,19 +46,19 @@
   "bugs": {
     "url": "https://github.com/dpck/render/issues"
   },
-  "homepage": "https://compiler.page",
+  "homepage": "https://www.compiler.page",
   "devDependencies": {
-    "@a-la/jsx": "^1.6.0",
+    "@a-la/jsx": "^1.6.3",
     "@depack/context": "^1.1.2",
     "@externs/preact": "^1.2.9",
-    "@idio/core": "^1.4.0",
-    "alamode": "^3.2.0",
-    "depack": "^1.0.1",
-    "documentary": "^1.34.1",
+    "@idio/idio": "^1.2.4",
+    "alamode": "^3.5.2",
+    "depack": "^1.1.2",
+    "documentary": "^1.37.0",
     "eslint-config-artdeco": "1.0.1",
     "preact": "8.5.3",
     "rqt": "^4.0.0",
-    "yarn-s": "^1.2.1",
-    "zoroaster": "^4.1.2"
+    "yarn-s": "^1.2.3",
+    "zoroaster": "^4.3.0"
   }
 }

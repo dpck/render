@@ -2,12 +2,12 @@
 
 Using _Depack/Render_ for SSR is very easy with the [ÀLaMode](https://github.com/a-la/alamode) transpiler of the source code. It is installed as a require hook in the entry point of the app:
 
-%EXAMPLE: example/app.js%
+%EXAMPLE: example/app%
 
 _And the server is configured:_
 
-%EXAMPLE: example/server.jsx, ../src => @depack/render%
-%FORK-html example example/app%
+%EXAMPLE: example/server, ../src => @depack/render%
+%FORK-html example/app%
 
 There are some limitation such as
 

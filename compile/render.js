@@ -186,7 +186,7 @@ const U = a => {
   return a[a.length - 1].length;
 };
 module.exports = (a, b = {}, e = {}) => {
-  const {addDoctype:l, pretty:v} = b;
+  const l = b.addDoctype, v = b.pretty;
   a = S(a, b, e);
   return l ? `<!doctype html>${v ? "\n" : ""}${a}` : a;
 };

@@ -134,7 +134,7 @@ require('./server')
 _And the server is configured:_
 
 ```jsx
-import idio from '@idio/core'
+import idio from '@idio/idio'
 import render from '@depack/render'
 
 const Html = ({ name }) => (<html>
@@ -155,7 +155,7 @@ const Html = ({ name }) => (<html>
 
 const Server = async (name) => {
   const { app, url } = await idio()
-  app.use(async (ctx) => {
+  app.use((ctx) => {
     ctx.body = render(
       (<Html name={name}/>),
       { addDoctype: true,
@@ -208,19 +208,12 @@ There are a number of new features that the fork has:
 <table>
   <tr>
     <th>
-      <a href="https://artd.eco">
+      <a href="https://www.artd.eco">
         <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
           alt="Art Deco">
       </a>
     </th>
-    <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://artd.eco/depack">Depack</a> 2019</th>
-    <th>
-      <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
-          alt="Tech Nation Visa">
-      </a>
-    </th>
-    <th><a href="https://www.technation.sucks">Tech Nation Visa Sucks</a></th>
+    <th>© <a href="https://www.artd.eco">Art Deco™</a> for <a href="https://artd.eco/depack">Depack</a> 2020</th>
   </tr>
 </table>
 
